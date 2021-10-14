@@ -1,0 +1,30 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = 'Sistema de vendas'
+  ClientHeight = 401
+  ClientWidth = 663
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = Menu
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Menu: TMainMenu
+    Left = 40
+    Top = 328
+    object CadastrarMenu: TMenuItem
+      Caption = 'Cadastrar'
+      object ClienteCadastrarMenu: TMenuItem
+        Caption = 'Cliente'
+      end
+      object ProdutoCadastrarMenu: TMenuItem
+        Caption = 'Produto'
+      end
+    end
+  end
+end

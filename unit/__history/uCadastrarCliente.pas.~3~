@@ -1,0 +1,27 @@
+unit uCadastrarCliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB;
+
+type
+  TfrmCadastrarCliente = class(TForm)
+    DSclientes: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastrarCliente: TfrmCadastrarCliente;
+
+implementation
+
+{$R *.dfm}
+
+uses uDataModule, uMain;
+
+end.
