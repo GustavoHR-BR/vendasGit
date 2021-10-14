@@ -26,12 +26,14 @@ implementation
 
 {$R *.dfm}
 
-uses uCadastrarCliente, uDataModule;
+uses uCadastrarCliente, uDataModule, uFunctions;
 
 procedure TfrmMain.ClienteCadastrarMenuClick(Sender: TObject);
 begin
-//
   Application.CreateForm(TfrmCadastrarCliente, frmCadastrarCliente);
+  DM.CDSclientescpf.EditMask := '000.000.000-00;1;_';
+  DM.CDSclientestelefone.EditMask := '(00)00000-0000;1;_';
+  DM.CDSclientesdataNascimento.EditMask := '00/00/0000;1;_';
   try
     frmCadastrarCliente.ShowModal;
   finally
