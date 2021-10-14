@@ -33,6 +33,7 @@ type
     procedure btnEditarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -141,9 +142,30 @@ end;
 
 procedure TfrmCadastrarProduto.btnCancelarClick(Sender: TObject);
 begin
-  DM.CDSclientes.Cancel;
-  edtsEnableCliente(false);
-  btnEnableCliente(true);
+  DM.CDSprodutos.Cancel;
+  edtsEnableProduto(false);
+  btnEnableProduto(true);
+end;
+
+procedure TfrmCadastrarProduto.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  if DM.CDSprodutos.State in [dsEdit, dsInsert] then
+  begin
+    ShowMessage('Existe uma alteração pendente. Conclua-a primeiro!');
+  end
+  else
+  begin
+    if Application.MessageBox('Deseja realmente fechar?', 'Atenção',
+      MB_YESNO + MB_ICONQUESTION) = mrYes then
+    begin
+      DM.CDSprodutos.Close;
+      frmCadastrarProduto.Close;
+    end
+    else
+      Abort;
+  end;
+
 end;
 
 end.

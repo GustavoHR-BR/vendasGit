@@ -157,6 +157,7 @@ begin
   if DM.CDSclientes.State in [dsEdit, dsInsert] then
   begin
     ShowMessage('Existe uma alteração pendente. Conclua-a primeiro!');
+    Abort;
   end
   else
   begin
@@ -169,6 +170,7 @@ begin
     else
       Abort;
   end;
+
 end;
 
 end.

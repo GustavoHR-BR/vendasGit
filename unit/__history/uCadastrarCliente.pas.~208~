@@ -11,7 +11,7 @@ uses
 type
   TfrmCadastrarCliente = class(TForm)
     DSclientes: TDataSource;
-    DBGridClientes: TDBGrid;
+    DBGrid: TDBGrid;
     Label2: TLabel;
     DBEdtNome: TDBEdit;
     Label4: TLabel;
@@ -61,7 +61,7 @@ begin
   DM.queryClientes.SQL.Add('select * from cliente where nome LIKE "%' +
     LowerCase(Trim(edtBuscar.Text)) + '%";');
   DM.CDSclientes.Open;
-  DBGridClientes.DataSource := DSclientes;
+  DBGrid.DataSource := DSclientes;
 end;
 
 procedure TfrmCadastrarCliente.btnNovoClick(Sender: TObject);
@@ -71,6 +71,8 @@ begin
 
   btnEnableCliente(false);
   edtsEnableCliente(true);
+  edtBuscar.Enabled := false;
+  DBGrid.Enabled := false;
 
   DM.CDSclientes.Append;
   DBEdtNome.setfocus;
@@ -98,7 +100,7 @@ begin
         ShowMessage('Erro ao inserir registro-  ' + E.ToString);
     end;
   end
-  else
+  else if DM.CDSclientes.State in [dsEdit] then
   begin
 
     DM.CDSclientes.Post;
@@ -109,7 +111,7 @@ begin
       ShowMessage('Sucesso ao editar registro');
     except
       on E: Exception do
-        ShowMessage('Erro ao inserir registro-  ' + E.ToString);
+        ShowMessage('Erro ao editar registro-  ' + E.ToString);
     end;
   end;
 
@@ -162,11 +164,12 @@ begin
       MB_YESNO + MB_ICONQUESTION) = mrYes then
     begin
       DM.CDSclientes.Close;
-      frmCadastrarCliente.Close
+      frmCadastrarCliente.Close;
     end
     else
       Abort;
   end;
+
 end;
 
 end.

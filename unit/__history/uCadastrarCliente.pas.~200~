@@ -71,6 +71,7 @@ begin
 
   btnEnableCliente(false);
   edtsEnableCliente(true);
+  edtBuscar.Enabled := false;
   DBGrid.Enabled := false;
 
   DM.CDSclientes.Append;
@@ -153,21 +154,31 @@ end;
 procedure TfrmCadastrarCliente.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+  { if DM.CDSclientes.State in [dsEdit, dsInsert] then
+    begin
+    ShowMessage('Existe uma alteração pendente. Conclua-a primeiro!');
+    end
+    else
+    begin
+    if Application.MessageBox('Deseja realmente fechar?', 'Atenção',
+    MB_YESNO + MB_ICONQUESTION) = mrYes then
+    begin
+    DM.CDSclientes.Close;
+    frmCadastrarCliente.Close;
+    end
+    else
+    Abort;
+    end; }
+
   if DM.CDSclientes.State in [dsEdit, dsInsert] then
   begin
-    ShowMessage('Existe uma alteração pendente. Conclua-a primeiro!');
+
   end
   else
   begin
-    if Application.MessageBox('Deseja realmente fechar?', 'Atenção',
-      MB_YESNO + MB_ICONQUESTION) = mrYes then
-    begin
-      DM.CDSclientes.Close;
-      frmCadastrarCliente.Close
-    end
-    else
-      Abort;
+
   end;
+
 end;
 
 end.
