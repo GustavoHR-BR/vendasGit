@@ -31,12 +31,5 @@ object frmMain: TfrmMain
         OnClick = ProdutoCadastrarMenuClick
       end
     end
-    object Pedidos1: TMenuItem
-      Caption = 'Pedidos'
-      object Pedidosdevenda1: TMenuItem
-        Caption = 'Pedidos de venda'
-        OnClick = Pedidosdevenda1Click
-      end
-    end
   end
 end

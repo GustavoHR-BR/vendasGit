@@ -35,7 +35,6 @@ object frmMain: TfrmMain
       Caption = 'Pedidos'
       object Pedidosdevenda1: TMenuItem
         Caption = 'Pedidos de venda'
-        OnClick = Pedidosdevenda1Click
       end
     end
   end

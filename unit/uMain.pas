@@ -13,8 +13,11 @@ type
     CadastrarMenu: TMenuItem;
     ClienteCadastrarMenu: TMenuItem;
     ProdutoCadastrarMenu: TMenuItem;
+    Pedidos1: TMenuItem;
+    Pedidosdevenda1: TMenuItem;
     procedure ClienteCadastrarMenuClick(Sender: TObject);
     procedure ProdutoCadastrarMenuClick(Sender: TObject);
+    procedure Pedidosdevenda1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,6 +44,11 @@ begin
   finally
     FreeAndNil(frmCadastrarCliente);
   end;
+end;
+
+procedure TfrmMain.Pedidosdevenda1Click(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfrmMain.ProdutoCadastrarMenuClick(Sender: TObject);

@@ -3,7 +3,8 @@ unit uMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus;
 
 type
@@ -12,7 +13,11 @@ type
     CadastrarMenu: TMenuItem;
     ClienteCadastrarMenu: TMenuItem;
     ProdutoCadastrarMenu: TMenuItem;
+    Pedidos1: TMenuItem;
+    Pedidosdevenda1: TMenuItem;
     procedure ClienteCadastrarMenuClick(Sender: TObject);
+    procedure ProdutoCadastrarMenuClick(Sender: TObject);
+    procedure Pedidosdevenda1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,7 +31,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCadastrarCliente, uDataModule;
+uses uCadastrarCliente, uDataModule, uFunctions, uCadastrarProduto;
 
 procedure TfrmMain.ClienteCadastrarMenuClick(Sender: TObject);
 begin
@@ -38,6 +43,21 @@ begin
     frmCadastrarCliente.ShowModal;
   finally
     FreeAndNil(frmCadastrarCliente);
+  end;
+end;
+
+procedure TfrmMain.Pedidosdevenda1Click(Sender: TObject);
+begin
+//
+end;
+
+procedure TfrmMain.ProdutoCadastrarMenuClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmCadastrarProduto, frmCadastrarProduto);
+  try
+    frmCadastrarProduto.ShowModal;
+  finally
+    FreeAndNil(frmCadastrarProduto);
   end;
 end;
 

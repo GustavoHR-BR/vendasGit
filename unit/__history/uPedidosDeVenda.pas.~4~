@@ -1,0 +1,32 @@
+unit uPedidosDeVenda;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons,
+  Vcl.Grids, Vcl.DBGrids;
+
+type
+  TfrmPedidosDeVenda = class(TForm)
+    edtBuscar: TEdit;
+    Label1: TLabel;
+    DBGrid1: TDBGrid;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    Panel1: TPanel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPedidosDeVenda: TfrmPedidosDeVenda;
+
+implementation
+
+{$R *.dfm}
+
+end.
