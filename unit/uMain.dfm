@@ -28,6 +28,7 @@ object frmMain: TfrmMain
       end
       object ProdutoCadastrarMenu: TMenuItem
         Caption = 'Produto'
+        OnClick = ProdutoCadastrarMenuClick
       end
     end
   end

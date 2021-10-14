@@ -96,6 +96,10 @@
 				<FormType>dfm</FormType>
 			</DCCReference>
 			<DCCReference Include="function\uFunctions.pas"/>
+			<DCCReference Include="unit\uCadastrarProduto.pas">
+				<Form>frmCadastrarProduto</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

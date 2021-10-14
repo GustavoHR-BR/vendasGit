@@ -5,12 +5,14 @@ interface
 function getId(id, tabela: string): Integer;
 procedure btnEnableCliente(status: Boolean);
 procedure edtsEnableCliente(status: Boolean);
+procedure btnEnableProduto(status: Boolean);
+procedure edtsEnableProduto(status: Boolean);
 
 implementation
 
 uses uCadastrarCliente, uDataModule, uMain, System.SysUtils, System.Classes,
   Data.DBXMySQL, Data.DB, Data.SqlExpr, Data.FMTBcd, Datasnap.DBClient,
-  Datasnap.Provider;
+  Datasnap.Provider, uCadastrarProduto;
 
 function getId(id, tabela: string): Integer;
 begin
@@ -47,6 +49,23 @@ begin
   frmCadastrarCliente.DBEdtEmail.Enabled := status;
   frmCadastrarCliente.DBEdtDataNascimento.Enabled := status;
   frmCadastrarCliente.DBEdtEndereco.Enabled := status;
+end;
+
+procedure btnEnableProduto(status: Boolean);
+begin
+  frmCadastrarProduto.btnNovo.Enabled := status;
+  frmCadastrarProduto.btnSalvar.Enabled := not status;
+  frmCadastrarProduto.btnEditar.Enabled := status;
+  frmCadastrarProduto.btnExcluir.Enabled := status;
+  frmCadastrarProduto.btnCancelar.Enabled := not status;
+end;
+
+procedure edtsEnableProduto(status: Boolean);
+begin
+  frmCadastrarProduto.DBEdtNome.Enabled := status;
+  frmCadastrarProduto.DBEdtPreco.Enabled := status;
+  frmCadastrarProduto.DBEdtDescricao.Enabled := status;
+  frmCadastrarProduto.DBEdtQtdEstoque.Enabled := status;
 end;
 
 end.

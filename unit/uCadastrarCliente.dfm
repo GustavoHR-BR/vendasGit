@@ -4,8 +4,8 @@ object frmCadastrarCliente: TfrmCadastrarCliente
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastro de clientes'
-  ClientHeight = 566
-  ClientWidth = 790
+  ClientHeight = 551
+  ClientWidth = 795
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
   PixelsPerInch = 96
   TextHeight = 13
   object Label2: TLabel
-    Left = 81
+    Left = 112
     Top = 304
     Width = 31
     Height = 13
@@ -26,7 +26,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     FocusControl = DBEdtNome
   end
   object Label4: TLabel
-    Left = 67
+    Left = 98
     Top = 352
     Width = 46
     Height = 13
@@ -34,7 +34,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     FocusControl = DBEdtTelefone
   end
   object Label5: TLabel
-    Left = 420
+    Left = 451
     Top = 352
     Width = 32
     Height = 13
@@ -42,7 +42,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     FocusControl = DBEdtEmail
   end
   object Label7: TLabel
-    Left = 399
+    Left = 430
     Top = 400
     Width = 49
     Height = 13
@@ -50,14 +50,14 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     FocusControl = DBEdtEndereco
   end
   object Label1: TLabel
-    Left = 31
+    Left = 11
     Top = 51
     Width = 50
     Height = 13
     Caption = 'Pesquisar:'
   end
   object btnNovo: TSpeedButton
-    Left = 87
+    Left = 119
     Top = 464
     Width = 65
     Height = 65
@@ -212,7 +212,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnNovoClick
   end
   object btnSalvar: TSpeedButton
-    Left = 199
+    Left = 231
     Top = 464
     Width = 65
     Height = 65
@@ -368,7 +368,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnSalvarClick
   end
   object btnEditar: TSpeedButton
-    Left = 313
+    Left = 345
     Top = 464
     Width = 65
     Height = 65
@@ -523,7 +523,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnEditarClick
   end
   object btnExcluir: TSpeedButton
-    Left = 429
+    Left = 461
     Top = 464
     Width = 65
     Height = 65
@@ -871,7 +871,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnExcluirClick
   end
   object btnCancelar: TSpeedButton
-    Left = 551
+    Left = 583
     Top = 464
     Width = 65
     Height = 65
@@ -1220,7 +1220,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnCancelarClick
   end
   object Label3: TLabel
-    Left = 429
+    Left = 460
     Top = 304
     Width = 23
     Height = 13
@@ -1228,17 +1228,17 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     FocusControl = DBEdtCPF
   end
   object Label6: TLabel
-    Left = 8
+    Left = 39
     Top = 400
     Width = 99
     Height = 13
     Caption = 'Data de nascimento:'
     FocusControl = DBEdtDataNascimento
   end
-  object DBGridClientes: TDBGrid
-    Left = 8
+  object DBGrid: TDBGrid
+    Left = 67
     Top = 88
-    Width = 765
+    Width = 695
     Height = 185
     DataSource = DSclientes
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
@@ -1299,7 +1299,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
       end>
   end
   object DBEdtNome: TDBEdit
-    Left = 126
+    Left = 157
     Top = 301
     Width = 212
     Height = 21
@@ -1309,7 +1309,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     TabOrder = 1
   end
   object DBEdtTelefone: TDBEdit
-    Left = 126
+    Left = 157
     Top = 349
     Width = 212
     Height = 21
@@ -1319,7 +1319,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     TabOrder = 2
   end
   object DBEdtEmail: TDBEdit
-    Left = 463
+    Left = 494
     Top = 349
     Width = 212
     Height = 21
@@ -1329,7 +1329,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     TabOrder = 3
   end
   object DBEdtEndereco: TDBEdit
-    Left = 463
+    Left = 494
     Top = 400
     Width = 212
     Height = 21
@@ -1339,7 +1339,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     TabOrder = 4
   end
   object edtBuscar: TEdit
-    Left = 87
+    Left = 67
     Top = 48
     Width = 354
     Height = 21
@@ -1347,7 +1347,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnChange = edtBuscarChange
   end
   object DBEdtCPF: TDBEdit
-    Left = 463
+    Left = 494
     Top = 301
     Width = 212
     Height = 21
@@ -1357,7 +1357,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     TabOrder = 6
   end
   object DBEdtDataNascimento: TDBEdit
-    Left = 126
+    Left = 157
     Top = 397
     Width = 212
     Height = 21
@@ -1369,6 +1369,6 @@ object frmCadastrarCliente: TfrmCadastrarCliente
   object DSclientes: TDataSource
     DataSet = DM.CDSclientes
     Left = 712
-    Top = 312
+    Top = 32
   end
 end
