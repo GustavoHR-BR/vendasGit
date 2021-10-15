@@ -7,6 +7,7 @@ procedure btnEnableCliente(status: Boolean);
 procedure edtsEnableCliente(status: Boolean);
 procedure btnEnableProduto(status: Boolean);
 procedure edtsEnableProduto(status: Boolean);
+procedure selectItemFromVenda;
 
 implementation
 
@@ -66,6 +67,27 @@ begin
   frmCadastrarProduto.DBEdtPreco.Enabled := status;
   frmCadastrarProduto.DBEdtDescricao.Enabled := status;
   frmCadastrarProduto.DBEdtQtdEstoque.Enabled := status;
+end;
+
+procedure selectItemFromVenda;
+begin
+  if dm.CDSvendasid.Text <> '' then
+  begin
+    DM.CDSitens.Close;
+    DM.queryItens.Close;
+    DM.queryItens.sql.Clear;
+    DM.queryItens.sql.Add('select * from item where fkVenda = ' +
+      DM.CDSvendasid.Text + ';');
+    DM.CDSitens.Open;
+  end
+  else
+  begin
+    DM.CDSitens.Close;
+    DM.queryItens.Close;
+    DM.queryItens.sql.Clear;
+    DM.queryItens.sql.Add('select * from item where fkVenda = 0');
+    DM.CDSitens.Open;
+  end;
 end;
 
 end.

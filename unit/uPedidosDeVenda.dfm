@@ -13,6 +13,8 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object DBGridVendas: TDBGrid
@@ -20,12 +22,44 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
     Top = 64
     Width = 681
     Height = 193
+    DataSource = DSvendas
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnCellClick = DBGridVendasCellClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'id'
+        Title.Caption = 'C'#243'digo da venda'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'fkCliente'
+        Title.Caption = 'C'#243'digo do cliente'
+        Width = 120
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'total'
+        Title.Caption = 'Total'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'data'
+        Title.Caption = 'Data'
+        Width = 100
+        Visible = True
+      end>
   end
   object Panel1: TPanel
     Left = 0
@@ -36,26 +70,83 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
     object btnNovo: TSpeedButton
       Left = 40
       Top = 8
-      Width = 81
+      Width = 80
       Height = 33
+      Caption = 'Nova'
+      OnClick = btnNovoClick
     end
     object btnEditar: TSpeedButton
-      Left = 152
+      Left = 144
       Top = 8
-      Width = 81
+      Width = 80
       Height = 33
+      Caption = 'Editar'
     end
     object btnImprimir: TSpeedButton
-      Left = 256
+      Left = 248
       Top = 8
-      Width = 97
+      Width = 80
       Height = 33
+      Caption = 'Imprimir'
     end
     object btnSair: TSpeedButton
       Left = 584
       Top = 8
       Width = 81
       Height = 33
+      Caption = 'Sair'
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 0
+    Width = 681
+    Height = 65
+    TabOrder = 2
+    object Label1: TLabel
+      Left = 16
+      Top = 36
+      Width = 70
+      Height = 13
+      Caption = 'Buscar cliente:'
+    end
+    object Label2: TLabel
+      Left = 376
+      Top = 11
+      Width = 23
+      Height = 13
+      Caption = 'CPF:'
+    end
+    object Label3: TLabel
+      Left = 503
+      Top = 11
+      Width = 31
+      Height = 13
+      Caption = 'Nome:'
+    end
+    object edtBuscar: TEdit
+      Left = 92
+      Top = 31
+      Width = 229
+      Height = 21
+      TabOrder = 0
+      OnChange = edtBuscarChange
+    end
+    object edtCPF: TEdit
+      Left = 376
+      Top = 30
+      Width = 121
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+    end
+    object edtNome: TEdit
+      Left = 503
+      Top = 30
+      Width = 162
+      Height = 21
+      Enabled = False
+      TabOrder = 2
     end
   end
   object DBGridProdutos: TDBGrid
@@ -63,32 +154,83 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
     Top = 256
     Width = 681
     Height = 130
-    TabOrder = 2
+    DataSource = DSitem
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
+    TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'id'
+        Title.Caption = 'C'#243'digo do item'
+        Width = 80
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'fkVenda'
+        Title.Caption = 'C'#243'digo da venda'
+        Width = 95
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'fkproduto'
+        Title.Caption = 'C'#243'digo do produto'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'nome'
+        Title.Caption = 'Nome'
+        Width = 120
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'preco'
+        Title.Caption = 'Pre'#231'o'
+        Width = 60
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'descricao'
+        Title.Caption = 'Descri'#231#227'o'
+        Width = 115
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'quantidade'
+        Title.Caption = 'Quantidade'
+        Width = 70
+        Visible = True
+      end>
   end
-  object Panel2: TPanel
-    Left = 0
-    Top = 0
-    Width = 681
-    Height = 65
-    TabOrder = 3
-    object Label1: TLabel
-      Left = 24
-      Top = 28
-      Width = 70
-      Height = 13
-      Caption = 'Buscar cliente:'
-    end
-    object edtBuscar: TEdit
-      Left = 100
-      Top = 23
-      Width = 229
-      Height = 21
-      TabOrder = 0
-    end
+  object DSvendas: TDataSource
+    DataSet = DM.CDSvendas
+    Left = 408
+    Top = 400
+  end
+  object DSclientes: TDataSource
+    DataSet = DM.CDSclientes
+    Left = 464
+    Top = 400
+  end
+  object DSprodutos: TDataSource
+    DataSet = DM.CDSprodutos
+    Left = 528
+    Top = 400
+  end
+  object DSitem: TDataSource
+    DataSet = DM.CDSitens
+    Left = 360
+    Top = 400
   end
 end
