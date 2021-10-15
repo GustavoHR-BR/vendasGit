@@ -3,25 +3,28 @@
 	<Transactions>
     <Transaction>2021/10/07 14:08:57.000.056,=C:\Users\Administrador\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2021/10/14 11:18:02.000.848,=C:\Users\Administrador\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2021/10/14 11:18:18.000.561,C:\Users\Administrador\Documents\RAD Studio\Projects\Unit1.dfm=C:\Users\Administrador\Desktop\first git venda\unit\uMain.dfm</Transaction>
-    <Transaction>2021/10/14 11:18:18.000.561,C:\Users\Administrador\Documents\RAD Studio\Projects\Unit1.pas=C:\Users\Administrador\Desktop\first git venda\unit\uMain.pas</Transaction>
-    <Transaction>2021/10/14 11:18:23.000.262,C:\Users\Administrador\Documents\RAD Studio\Projects\Project1.dproj=C:\Users\Administrador\Desktop\first git venda\project.dproj</Transaction>
+    <Transaction>2021/10/14 11:18:18.000.561,C:\Users\Administrador\Desktop\first git venda\unit\uMain.dfm=C:\Users\Administrador\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021/10/14 11:18:18.000.561,C:\Users\Administrador\Desktop\first git venda\unit\uMain.pas=C:\Users\Administrador\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/10/14 11:18:23.000.262,C:\Users\Administrador\Desktop\first git venda\project.dproj=C:\Users\Administrador\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2021/10/14 11:19:36.000.006,=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
-    <Transaction>2021/10/14 11:19:45.000.313,C:\Users\Administrador\Desktop\first git venda\Unit1.pas=C:\Users\Administrador\Desktop\first git venda\data module\uDataModule.pas</Transaction>
-    <Transaction>2021/10/14 11:19:45.000.313,C:\Users\Administrador\Desktop\first git venda\Unit1.dfm=C:\Users\Administrador\Desktop\first git venda\data module\uDataModule.dfm</Transaction>
+    <Transaction>2021/10/14 11:19:45.000.313,C:\Users\Administrador\Desktop\first git venda\data module\uDataModule.pas=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
+    <Transaction>2021/10/14 11:19:45.000.313,C:\Users\Administrador\Desktop\first git venda\data module\uDataModule.dfm=C:\Users\Administrador\Desktop\first git venda\Unit1.dfm</Transaction>
     <Transaction>2021/10/14 11:37:37.000.772,=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
-    <Transaction>2021/10/14 11:37:49.000.288,C:\Users\Administrador\Desktop\first git venda\Unit1.pas=C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarCliente.pas</Transaction>
-    <Transaction>2021/10/14 11:37:49.000.288,C:\Users\Administrador\Desktop\first git venda\Unit1.dfm=C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarCliente.dfm</Transaction>
+    <Transaction>2021/10/14 11:37:49.000.288,C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarCliente.pas=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
+    <Transaction>2021/10/14 11:37:49.000.288,C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarCliente.dfm=C:\Users\Administrador\Desktop\first git venda\Unit1.dfm</Transaction>
     <Transaction>2021/10/14 14:18:07.000.685,=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
-    <Transaction>2021/10/14 14:18:17.000.778,C:\Users\Administrador\Desktop\first git venda\Unit1.pas=C:\Users\Administrador\Desktop\first git venda\function\uFunctions.pas</Transaction>
+    <Transaction>2021/10/14 14:18:17.000.778,C:\Users\Administrador\Desktop\first git venda\function\uFunctions.pas=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
     <Transaction>2021/10/14 16:17:28.000.401,=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
-    <Transaction>2021/10/14 16:17:38.000.393,C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarProduto.dfm=C:\Users\Administrador\Desktop\first git venda\Unit1.dfm</Transaction>
-    <Transaction>2021/10/14 16:17:38.000.393,C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarProduto.pas=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
+    <Transaction>2021/10/14 16:17:38.000.393,C:\Users\Administrador\Desktop\first git venda\Unit1.pas=C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarProduto.pas</Transaction>
+    <Transaction>2021/10/14 16:17:38.000.393,C:\Users\Administrador\Desktop\first git venda\Unit1.dfm=C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarProduto.dfm</Transaction>
     <Transaction>2021/10/14 17:31:17.000.368,=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
-    <Transaction>2021/10/14 17:31:25.000.417,C:\Users\Administrador\Desktop\first git venda\unit\uPedidosDeVenda.dfm=C:\Users\Administrador\Desktop\first git venda\Unit1.dfm</Transaction>
-    <Transaction>2021/10/14 17:31:25.000.417,C:\Users\Administrador\Desktop\first git venda\unit\uPedidosDeVenda.pas=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
+    <Transaction>2021/10/14 17:31:25.000.417,C:\Users\Administrador\Desktop\first git venda\Unit1.dfm=C:\Users\Administrador\Desktop\first git venda\unit\uPedidosDeVenda.dfm</Transaction>
+    <Transaction>2021/10/14 17:31:25.000.417,C:\Users\Administrador\Desktop\first git venda\Unit1.pas=C:\Users\Administrador\Desktop\first git venda\unit\uPedidosDeVenda.pas</Transaction>
     <Transaction>2021/10/14 17:46:23.000.128,=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
-    <Transaction>2021/10/14 17:46:31.000.715,C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarVenda.dfm=C:\Users\Administrador\Desktop\first git venda\Unit1.dfm</Transaction>
-    <Transaction>2021/10/14 17:46:31.000.715,C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarVenda.pas=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
+    <Transaction>2021/10/14 17:46:31.000.715,C:\Users\Administrador\Desktop\first git venda\Unit1.pas=C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarVenda.pas</Transaction>
+    <Transaction>2021/10/14 17:46:31.000.715,C:\Users\Administrador\Desktop\first git venda\Unit1.dfm=C:\Users\Administrador\Desktop\first git venda\unit\uCadastrarVenda.dfm</Transaction>
+    <Transaction>2021/10/15 11:25:48.787,=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
+    <Transaction>2021/10/15 11:26:44.266,C:\Users\Administrador\Desktop\first git venda\unit\uAdicionarItemAVenda.pas=C:\Users\Administrador\Desktop\first git venda\Unit1.pas</Transaction>
+    <Transaction>2021/10/15 11:26:44.266,C:\Users\Administrador\Desktop\first git venda\unit\uAdicionarItemAVenda.dfm=C:\Users\Administrador\Desktop\first git venda\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>

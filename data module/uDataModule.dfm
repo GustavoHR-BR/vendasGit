@@ -1,7 +1,7 @@
 object DM: TDM
   OldCreateOrder = False
-  Height = 405
-  Width = 353
+  Height = 470
+  Width = 453
   object SQLConnection: TSQLConnection
     DriverName = 'MySQL'
     GetDriverFunc = 'getSQLDriverMYSQL'
@@ -54,40 +54,6 @@ object DM: TDM
     SQLConnection = SQLConnection
     Left = 48
     Top = 88
-    object queryClientesid: TIntegerField
-      FieldName = 'id'
-      Required = True
-    end
-    object queryClientesnome: TStringField
-      FieldName = 'nome'
-      Required = True
-      Size = 60
-    end
-    object queryClientescpf: TStringField
-      FieldName = 'cpf'
-      Required = True
-      Size = 16
-    end
-    object queryClientestelefone: TStringField
-      FieldName = 'telefone'
-      Required = True
-      Size = 15
-    end
-    object queryClientesemail: TStringField
-      FieldName = 'email'
-      Required = True
-      Size = 30
-    end
-    object queryClientesdataNascimento: TStringField
-      FieldName = 'dataNascimento'
-      Required = True
-      Size = 10
-    end
-    object queryClientesendereco: TStringField
-      FieldName = 'endereco'
-      Required = True
-      Size = 60
-    end
   end
   object queryProdutos: TSQLQuery
     Active = True
@@ -119,71 +85,6 @@ object DM: TDM
       FieldName = 'quantidadeNoEstoque'
     end
   end
-  object queryVendas: TSQLQuery
-    Active = True
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select * from venda;')
-    SQLConnection = SQLConnection
-    Left = 48
-    Top = 240
-    object queryVendasid: TIntegerField
-      FieldName = 'id'
-      Required = True
-    end
-    object queryVendasfkCliente: TIntegerField
-      FieldName = 'fkCliente'
-      Required = True
-    end
-    object queryVendastotal: TFMTBCDField
-      FieldName = 'total'
-      Precision = 12
-      Size = 2
-    end
-    object queryVendasdata: TStringField
-      FieldName = 'data'
-      Size = 10
-    end
-  end
-  object queryItens: TSQLQuery
-    Active = True
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select * from item;')
-    SQLConnection = SQLConnection
-    Left = 48
-    Top = 320
-    object queryItensid: TIntegerField
-      FieldName = 'id'
-      Required = True
-    end
-    object queryItensfkVenda: TIntegerField
-      FieldName = 'fkVenda'
-      Required = True
-    end
-    object queryItensfkproduto: TIntegerField
-      FieldName = 'fkproduto'
-      Required = True
-    end
-    object queryItensnome: TStringField
-      FieldName = 'nome'
-      Size = 60
-    end
-    object queryItenspreco: TFMTBCDField
-      FieldName = 'preco'
-      Precision = 12
-      Size = 2
-    end
-    object queryItensdescricao: TStringField
-      FieldName = 'descricao'
-      Size = 100
-    end
-    object queryItensquantidade: TIntegerField
-      FieldName = 'quantidade'
-    end
-  end
   object DSPclientes: TDataSetProvider
     DataSet = queryClientes
     Left = 152
@@ -195,12 +96,12 @@ object DM: TDM
     Top = 160
   end
   object DSPvendas: TDataSetProvider
-    DataSet = queryVendas
+    DataSet = dataSetVendas
     Left = 152
     Top = 240
   end
   object DSPitens: TDataSetProvider
-    DataSet = queryItens
+    DataSet = dataSetItens
     Left = 152
     Top = 320
   end
@@ -300,7 +201,6 @@ object DM: TDM
     end
   end
   object CDSitens: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'DSPitens'
@@ -334,5 +234,47 @@ object DM: TDM
     object CDSitensquantidade: TIntegerField
       FieldName = 'quantidade'
     end
+  end
+  object DSvendas: TDataSource
+    DataSet = CDSvendas
+    Left = 344
+    Top = 240
+  end
+  object DSitens: TDataSource
+    DataSet = CDSitens
+    Left = 344
+    Top = 320
+  end
+  object DSclientes: TDataSource
+    DataSet = CDSclientes
+    Left = 344
+    Top = 88
+  end
+  object DSprodutos: TDataSource
+    DataSet = CDSprodutos
+    Left = 344
+    Top = 160
+  end
+  object dataSetItens: TSQLDataSet
+    SchemaName = 'gustavo_reblin'
+    Active = True
+    CommandText = 'select * from item'
+    DbxCommandType = 'Dbx.SQL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 40
+    Top = 320
+  end
+  object dataSetVendas: TSQLDataSet
+    SchemaName = 'gustavo_reblin'
+    Active = True
+    CommandText = 'select * from venda order by id asc;'
+    DbxCommandType = 'Dbx.SQL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 48
+    Top = 240
   end
 end

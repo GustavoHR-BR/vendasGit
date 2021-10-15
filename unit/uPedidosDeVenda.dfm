@@ -22,7 +22,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
     Top = 64
     Width = 777
     Height = 193
-    DataSource = DSvendas
+    DataSource = DM.DSvendas
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -81,6 +81,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
       Width = 80
       Height = 33
       Caption = 'Editar'
+      OnClick = btnEditarClick
     end
     object btnImprimir: TSpeedButton
       Left = 248
@@ -154,7 +155,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
     Top = 256
     Width = 777
     Height = 130
-    DataSource = DSitem
+    DataSource = DM.DSitens
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
@@ -212,25 +213,5 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
         Width = 70
         Visible = True
       end>
-  end
-  object DSvendas: TDataSource
-    DataSet = DM.CDSvendas
-    Left = 440
-    Top = 400
-  end
-  object DSclientes: TDataSource
-    DataSet = DM.CDSclientes
-    Left = 528
-    Top = 400
-  end
-  object DSprodutos: TDataSource
-    DataSet = DM.CDSprodutos
-    Left = 600
-    Top = 400
-  end
-  object DSitem: TDataSource
-    DataSet = DM.CDSitens
-    Left = 368
-    Top = 400
   end
 end

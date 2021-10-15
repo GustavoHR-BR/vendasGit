@@ -1,5 +1,5 @@
 unit uCadastrarVenda;
-
+
 interface
 
 uses
@@ -12,7 +12,6 @@ type
   TfrmCadastrarVenda = class(TForm)
     lbl: TLabel;
     edtBuscar: TEdit;
-    DSclientes: TDataSource;
     Label3: TLabel;
     DBEdtCPF: TDBEdit;
     Label4: TLabel;
@@ -27,7 +26,7 @@ type
     btnAddItem: TSpeedButton;
     btnEditarItem: TSpeedButton;
     btnRemoverItem: TSpeedButton;
-    DBGrid1: TDBGrid;
+    DBGridItensDaVenda: TDBGrid;
     edtSubTotal: TEdit;
     Label2: TLabel;
     edtDesconto: TEdit;
@@ -40,11 +39,13 @@ type
     btnSair: TSpeedButton;
     btnConfirmarVenda: TSpeedButton;
     btnSelecionar: TButton;
-    dsItens: TDataSource;
+    btnCancelar: TButton;
     procedure edtBuscarChange(Sender: TObject);
     procedure btnSelecionarClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure btnAddItemClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -59,17 +60,58 @@ implementation
 {$R *.dfm}
 
 uses uCadastrarCliente, uCadastrarProduto, uDataModule, uFunctions, uMain,
-  uPedidosDeVenda;
+  uPedidosDeVenda, uAdicionarItemAVenda;
 
 procedure TfrmCadastrarVenda.btnAddItemClick(Sender: TObject);
 begin
-  //
+  Application.CreateForm(TfrmAdicionarItemAVenda, frmAdicionarItemAVenda);
+  try
+    frmAdicionarItemAVenda.ShowModal;
+  finally
+    FreeAndNil(frmAdicionarItemAVenda);
+  end;
+end;
+
+procedure TfrmCadastrarVenda.btnCancelarClick(Sender: TObject);
+begin
+  edtBuscar.Clear;
+  btnCancelar.Enabled := false;
+  btnAddItem.Enabled := false;
+  btnSelecionar.Enabled := true;
+  edtBuscar.Enabled := true;
+  DBEdtCPF.Clear;
+  DBEdtTelefone.Clear;
+  DBEdtEmail.Clear;
+  DBEdtDataNascimento.Clear;
+  DBEdtEndereco.Clear;
+
+  dm.CDSvendas.Close;
+  dm.dataSetVendas.Close;
+  dm.dataSetVendas.CommandText :=
+    ('delete from venda where id = ' +
+    IntToStr((getId('id', 'venda') - 1)) + ';');
+  dm.dataSetVendas.Open;
+  dm.CDSvendas.Open;
 end;
 
 procedure TfrmCadastrarVenda.btnSelecionarClick(Sender: TObject);
 begin
   edtBuscar.Text := dm.CDSclientesnome.Text;
   btnAddItem.Enabled := true;
+  btnSelecionar.Enabled := false;
+  edtBuscar.Enabled := false;
+  btnCancelar.Enabled := true;
+
+  dm.CDSvendas.Append;
+  dm.CDSvendasid.AsInteger := getId('id', 'venda');
+  dm.CDSvendasfkCliente.AsInteger := StrToInt(dm.CDSclientesid.Text);
+  dm.CDSvendas.Post;
+  try
+    dm.CDSvendas.ApplyUpdates(0);
+  except
+    on E: Exception do
+      ShowMessage('Erro' + E.ToString);
+  end;
 end;
 
 procedure TfrmCadastrarVenda.edtBuscarChange(Sender: TObject);
@@ -85,8 +127,21 @@ begin
     btnAddItem.Enabled := false;
 end;
 
-procedure TfrmCadastrarVenda.FormCreate(Sender: TObject);
+procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
+  selectItemFromVenda;
+  frmPedidosDeVenda.DBGridProdutos.DataSource := dm.DSitens;
+end;
+
+procedure TfrmCadastrarVenda.FormShow(Sender: TObject);
+begin
+  dm.CDSitens.Close;
+  dm.dataSetItens.Close;
+  dm.dataSetItens.CommandText := 'select * from item limit 0';
+  dm.dataSetItens.Open;
+  dm.CDSitens.Open;
+  DBGridItensDaVenda.DataSource := dm.DSitens;
 
   DBEdtCPF.Clear;
   DBEdtTelefone.Clear;
@@ -96,3 +151,4 @@ begin
 end;
 
 end.
+

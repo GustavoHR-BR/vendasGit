@@ -1240,7 +1240,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     Top = 88
     Width = 695
     Height = 185
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -1304,7 +1304,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     Width = 212
     Height = 21
     DataField = 'nome'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 1
   end
@@ -1314,7 +1314,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     Width = 212
     Height = 21
     DataField = 'telefone'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 2
   end
@@ -1324,7 +1324,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     Width = 212
     Height = 21
     DataField = 'email'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 3
   end
@@ -1334,7 +1334,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     Width = 212
     Height = 21
     DataField = 'endereco'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 4
   end
@@ -1352,7 +1352,7 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     Width = 212
     Height = 21
     DataField = 'cpf'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 6
   end
@@ -1362,13 +1362,8 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     Width = 212
     Height = 21
     DataField = 'dataNascimento'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 7
-  end
-  object DSclientes: TDataSource
-    DataSet = DM.CDSclientes
-    Left = 712
-    Top = 32
   end
 end

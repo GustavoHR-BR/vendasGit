@@ -11,8 +11,6 @@ type
     SQLConnection: TSQLConnection;
     queryClientes: TSQLQuery;
     queryProdutos: TSQLQuery;
-    queryVendas: TSQLQuery;
-    queryItens: TSQLQuery;
     DSPclientes: TDataSetProvider;
     DSPprodutos: TDataSetProvider;
     DSPvendas: TDataSetProvider;
@@ -28,13 +26,6 @@ type
     CDSclientesemail: TStringField;
     CDSclientesdataNascimento: TStringField;
     CDSclientesendereco: TStringField;
-    queryClientesid: TIntegerField;
-    queryClientesnome: TStringField;
-    queryClientescpf: TStringField;
-    queryClientestelefone: TStringField;
-    queryClientesemail: TStringField;
-    queryClientesdataNascimento: TStringField;
-    queryClientesendereco: TStringField;
     CDSprodutosid: TIntegerField;
     CDSprodutosnome: TStringField;
     CDSprodutospreco: TFMTBCDField;
@@ -49,10 +40,12 @@ type
     CDSvendasfkCliente: TIntegerField;
     CDSvendastotal: TFMTBCDField;
     CDSvendasdata: TStringField;
-    queryVendasid: TIntegerField;
-    queryVendasfkCliente: TIntegerField;
-    queryVendastotal: TFMTBCDField;
-    queryVendasdata: TStringField;
+    DSvendas: TDataSource;
+    DSitens: TDataSource;
+    DSclientes: TDataSource;
+    DSprodutos: TDataSource;
+    dataSetItens: TSQLDataSet;
+    dataSetVendas: TSQLDataSet;
     CDSitensid: TIntegerField;
     CDSitensfkVenda: TIntegerField;
     CDSitensfkproduto: TIntegerField;
@@ -60,13 +53,7 @@ type
     CDSitenspreco: TFMTBCDField;
     CDSitensdescricao: TStringField;
     CDSitensquantidade: TIntegerField;
-    queryItensid: TIntegerField;
-    queryItensfkVenda: TIntegerField;
-    queryItensfkproduto: TIntegerField;
-    queryItensnome: TStringField;
-    queryItenspreco: TFMTBCDField;
-    queryItensdescricao: TStringField;
-    queryItensquantidade: TIntegerField;
+
   private
     { Private declarations }
   public
@@ -81,5 +68,7 @@ implementation
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
 {$R *.dfm}
+
+
 
 end.

@@ -1,5 +1,5 @@
 unit uFunctions;
-
+
 interface
 
 function getId(id, tabela: string): Integer;
@@ -8,12 +8,14 @@ procedure edtsEnableCliente(status: Boolean);
 procedure btnEnableProduto(status: Boolean);
 procedure edtsEnableProduto(status: Boolean);
 procedure selectItemFromVenda;
+function valorTotalDoItem : Double;
 
 implementation
 
 uses uCadastrarCliente, uDataModule, uMain, System.SysUtils, System.Classes,
   Data.DBXMySQL, Data.DB, Data.SqlExpr, Data.FMTBcd, Datasnap.DBClient,
-  Datasnap.Provider, uCadastrarProduto;
+  Datasnap.Provider, uCadastrarProduto, uAdicionarItemAVenda, uCadastrarVenda,
+  uPedidosDeVenda;
 
 function getId(id, tabela: string): Integer;
 begin
@@ -71,23 +73,51 @@ end;
 
 procedure selectItemFromVenda;
 begin
-  if dm.CDSvendasid.Text <> '' then
+  if DM.CDSvendasid.Text <> '' then
   begin
     DM.CDSitens.Close;
-    DM.queryItens.Close;
-    DM.queryItens.sql.Clear;
-    DM.queryItens.sql.Add('select * from item where fkVenda = ' +
-      DM.CDSvendasid.Text + ';');
+    DM.dataSetItens.Close;
+    DM.dataSetItens.CommandText :=
+      ('select * from item where fkVenda = ' + DM.CDSvendasid.Text +
+      ' order by id asc;');
+    DM.dataSetItens.Open;
     DM.CDSitens.Open;
   end
   else
   begin
     DM.CDSitens.Close;
-    DM.queryItens.Close;
-    DM.queryItens.sql.Clear;
-    DM.queryItens.sql.Add('select * from item where fkVenda = 0');
+    DM.dataSetItens.Close;
+    DM.dataSetItens.CommandText :=
+      ('select * from item where fkVenda = 0 order by id asc');
+    DM.dataSetItens.Open;
     DM.CDSitens.Open;
+
   end;
 end;
 
+function valorTotalDoItem : Double;
+var
+  preco, desconto, acrescimo: Double;
+  qtd: Integer;
+
+begin
+
+  if frmAdicionarItemAVenda.edtQuantidade.Text = '' then
+    frmAdicionarItemAVenda.edtQuantidade.Text := '0';
+
+  if frmAdicionarItemAVenda.edtDesconto.Text = '' then
+    frmAdicionarItemAVenda.edtDesconto.Text := '0';
+
+  if frmAdicionarItemAVenda.edtAcrescimo.Text = '' then
+    frmAdicionarItemAVenda.edtAcrescimo.Text := '0';
+
+  preco := StrToFloat(frmAdicionarItemAVenda.DBEdtPreco.Text);
+  qtd := StrToInt(frmAdicionarItemAVenda.edtQuantidade.Text);
+  desconto := StrToFloat(frmAdicionarItemAVenda.edtDesconto.Text) / 100;
+  acrescimo := StrToFloat(frmAdicionarItemAVenda.edtAcrescimo.Text) / 100;
+  Result := (preco * qtd) - (preco * desconto) + (preco * acrescimo);
+
+end;
+
 end.
+

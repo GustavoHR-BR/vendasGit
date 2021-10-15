@@ -14,7 +14,8 @@ object frmCadastrarVenda: TfrmCadastrarVenda
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnCreate = FormCreate
+  OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lbl: TLabel
@@ -25,7 +26,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Caption = 'Selecione o cliente:'
   end
   object Label3: TLabel
-    Left = 456
+    Left = 484
     Top = 32
     Width = 23
     Height = 13
@@ -33,7 +34,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     FocusControl = DBEdtCPF
   end
   object Label4: TLabel
-    Left = 626
+    Left = 630
     Top = 32
     Width = 46
     Height = 13
@@ -57,7 +58,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     FocusControl = DBEdtDataNascimento
   end
   object Label7: TLabel
-    Left = 457
+    Left = 461
     Top = 78
     Width = 49
     Height = 13
@@ -135,28 +136,28 @@ object frmCadastrarVenda: TfrmCadastrarVenda
   object edtBuscar: TEdit
     Left = 122
     Top = 29
-    Width = 230
+    Width = 175
     Height = 21
     TabOrder = 0
     OnChange = edtBuscarChange
   end
   object DBEdtCPF: TDBEdit
-    Left = 488
+    Left = 516
     Top = 29
     Width = 105
     Height = 21
     DataField = 'cpf'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 1
   end
   object DBEdtTelefone: TDBEdit
-    Left = 678
+    Left = 682
     Top = 29
     Width = 105
     Height = 21
     DataField = 'telefone'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 2
   end
@@ -166,7 +167,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Width = 159
     Height = 21
     DataField = 'email'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 3
   end
@@ -176,31 +177,65 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Width = 81
     Height = 21
     DataField = 'dataNascimento'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 4
   end
   object DBEdtEndereco: TDBEdit
-    Left = 512
+    Left = 516
     Top = 75
     Width = 273
     Height = 21
     DataField = 'endereco'
-    DataSource = DSclientes
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 5
   end
-  object DBGrid1: TDBGrid
+  object DBGridItensDaVenda: TDBGrid
     Left = 8
     Top = 175
     Width = 789
     Height = 146
+    DataSource = DM.DSitens
     TabOrder = 6
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'id'
+        Title.Caption = 'C'#243'digo'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'nome'
+        Title.Caption = 'Nome'
+        Width = 200
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'preco'
+        Title.Caption = 'Pre'#231'o'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'descricao'
+        Title.Caption = 'Descri'#231#227'o'
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'quantidade'
+        Title.Caption = 'Quantidade'
+        Visible = True
+      end>
   end
   object edtSubTotal: TEdit
     Left = 24
@@ -209,6 +244,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Height = 21
     Enabled = False
     TabOrder = 7
+    Text = '0'
   end
   object edtDesconto: TEdit
     Left = 160
@@ -217,6 +253,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Height = 21
     Enabled = False
     TabOrder = 8
+    Text = '0'
   end
   object edtFrete: TEdit
     Left = 296
@@ -225,6 +262,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Height = 21
     Enabled = False
     TabOrder = 9
+    Text = '0'
   end
   object edtValorTotal: TEdit
     Left = 676
@@ -256,22 +294,22 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     end
   end
   object btnSelecionar: TButton
-    Left = 358
+    Left = 311
     Top = 27
-    Width = 75
+    Width = 66
     Height = 25
     Caption = 'Selecionar'
     TabOrder = 12
     OnClick = btnSelecionarClick
   end
-  object DSclientes: TDataSource
-    DataSet = DM.CDSclientes
-    Left = 24
-    Top = 400
-  end
-  object dsItens: TDataSource
-    DataSet = DM.CDSitens
-    Left = 88
-    Top = 400
+  object btnCancelar: TButton
+    Left = 392
+    Top = 27
+    Width = 66
+    Height = 25
+    Caption = 'Cancelar'
+    Enabled = False
+    TabOrder = 13
+    OnClick = btnCancelarClick
   end
 end

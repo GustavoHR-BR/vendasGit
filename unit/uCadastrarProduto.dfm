@@ -1232,7 +1232,7 @@ object frmCadastrarProduto: TfrmCadastrarProduto
     Top = 88
     Width = 665
     Height = 185
-    DataSource = DSprodutos
+    DataSource = DM.DSprodutos
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
@@ -1283,7 +1283,7 @@ object frmCadastrarProduto: TfrmCadastrarProduto
     Width = 212
     Height = 21
     DataField = 'nome'
-    DataSource = DSprodutos
+    DataSource = DM.DSprodutos
     Enabled = False
     TabOrder = 2
   end
@@ -1293,7 +1293,7 @@ object frmCadastrarProduto: TfrmCadastrarProduto
     Width = 212
     Height = 21
     DataField = 'preco'
-    DataSource = DSprodutos
+    DataSource = DM.DSprodutos
     Enabled = False
     TabOrder = 3
   end
@@ -1303,7 +1303,7 @@ object frmCadastrarProduto: TfrmCadastrarProduto
     Width = 212
     Height = 21
     DataField = 'descricao'
-    DataSource = DSprodutos
+    DataSource = DM.DSprodutos
     Enabled = False
     TabOrder = 4
   end
@@ -1313,13 +1313,8 @@ object frmCadastrarProduto: TfrmCadastrarProduto
     Width = 212
     Height = 21
     DataField = 'quantidadeNoEstoque'
-    DataSource = DSprodutos
+    DataSource = DM.DSprodutos
     Enabled = False
     TabOrder = 5
-  end
-  object DSprodutos: TDataSource
-    DataSet = DM.CDSprodutos
-    Left = 712
-    Top = 32
   end
 end

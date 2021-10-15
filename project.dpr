@@ -8,7 +8,8 @@ uses
   uFunctions in 'function\uFunctions.pas',
   uCadastrarProduto in 'unit\uCadastrarProduto.pas' {frmCadastrarProduto},
   uPedidosDeVenda in 'unit\uPedidosDeVenda.pas' {frmPedidosDeVenda},
-  uCadastrarVenda in 'unit\uCadastrarVenda.pas' {frmCadastrarVenda};
+  uCadastrarVenda in 'unit\uCadastrarVenda.pas' {frmCadastrarVenda},
+  uAdicionarItemAVenda in 'unit\uAdicionarItemAVenda.pas' {frmAdicionarItemAVenda};
 
 {$R *.res}
 
@@ -21,5 +22,6 @@ begin
   Application.CreateForm(TfrmCadastrarProduto, frmCadastrarProduto);
   Application.CreateForm(TfrmPedidosDeVenda, frmPedidosDeVenda);
   Application.CreateForm(TfrmCadastrarVenda, frmCadastrarVenda);
+  Application.CreateForm(TfrmAdicionarItemAVenda, frmAdicionarItemAVenda);
   Application.Run;
 end.

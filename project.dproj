@@ -108,6 +108,10 @@
 				<Form>frmCadastrarVenda</Form>
 				<FormType>dfm</FormType>
 			</DCCReference>
+			<DCCReference Include="unit\uAdicionarItemAVenda.pas">
+				<Form>frmAdicionarItemAVenda</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
