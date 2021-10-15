@@ -31,7 +31,8 @@ implementation
 
 {$R *.dfm}
 
-uses uCadastrarCliente, uDataModule, uFunctions, uCadastrarProduto;
+uses uCadastrarCliente, uDataModule, uFunctions, uCadastrarProduto,
+  uPedidosDeVenda;
 
 procedure TfrmMain.ClienteCadastrarMenuClick(Sender: TObject);
 begin
@@ -48,7 +49,12 @@ end;
 
 procedure TfrmMain.Pedidosdevenda1Click(Sender: TObject);
 begin
-  //
+  Application.CreateForm(TfrmPedidosDeVenda, frmPedidosDeVenda);
+  try
+    frmPedidosDeVenda.ShowModal;
+  finally
+    FreeAndNil(frmPedidosDeVenda);
+  end;
 end;
 
 procedure TfrmMain.ProdutoCadastrarMenuClick(Sender: TObject);

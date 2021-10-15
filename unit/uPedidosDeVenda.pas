@@ -18,6 +18,7 @@ type
     Panel1: TPanel;
     DBGridProdutos: TDBGrid;
     Panel2: TPanel;
+    btnSair: TSpeedButton;
   private
     { Private declarations }
   public

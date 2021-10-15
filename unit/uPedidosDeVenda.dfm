@@ -1,9 +1,11 @@
 object frmPedidosDeVenda: TfrmPedidosDeVenda
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Pedidos de venda'
-  ClientHeight = 450
-  ClientWidth = 682
+  ClientHeight = 449
+  ClientWidth = 679
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -32,21 +34,27 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
     Height = 58
     TabOrder = 1
     object btnNovo: TSpeedButton
-      Left = 56
+      Left = 40
       Top = 8
       Width = 81
       Height = 33
     end
     object btnEditar: TSpeedButton
-      Left = 176
+      Left = 152
       Top = 8
       Width = 81
       Height = 33
     end
     object btnImprimir: TSpeedButton
-      Left = 288
+      Left = 256
       Top = 8
-      Width = 113
+      Width = 97
+      Height = 33
+    end
+    object btnSair: TSpeedButton
+      Left = 584
+      Top = 8
+      Width = 81
       Height = 33
     end
   end
