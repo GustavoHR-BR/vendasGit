@@ -1,9 +1,11 @@
-object frmCadastrarProduto: TfrmCadastrarProduto
+object frmCadastrarCliente: TfrmCadastrarCliente
   Left = 0
   Top = 0
-  Caption = 'Cadastro de produtos'
-  ClientHeight = 520
-  ClientWidth = 785
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Cadastro de clientes'
+  ClientHeight = 551
+  ClientWidth = 795
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,18 +14,51 @@ object frmCadastrarProduto: TfrmCadastrarProduto
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
+  object Label2: TLabel
+    Left = 112
+    Top = 304
+    Width = 31
+    Height = 13
+    Caption = 'Nome:'
+    FocusControl = DBEdtNome
+  end
+  object Label4: TLabel
+    Left = 98
+    Top = 352
+    Width = 46
+    Height = 13
+    Caption = 'Telefone:'
+    FocusControl = DBEdtTelefone
+  end
+  object Label5: TLabel
+    Left = 451
+    Top = 352
+    Width = 32
+    Height = 13
+    Caption = 'E-mail:'
+    FocusControl = DBEdtEmail
+  end
+  object Label7: TLabel
+    Left = 430
+    Top = 400
+    Width = 49
+    Height = 13
+    Caption = 'Endere'#231'o:'
+    FocusControl = DBEdtEndereco
+  end
   object Label1: TLabel
-    Left = 31
+    Left = 11
     Top = 51
     Width = 50
     Height = 13
     Caption = 'Pesquisar:'
   end
   object btnNovo: TSpeedButton
-    Left = 121
-    Top = 426
+    Left = 119
+    Top = 464
     Width = 65
     Height = 65
     Glyph.Data = {
@@ -177,8 +212,8 @@ object frmCadastrarProduto: TfrmCadastrarProduto
     OnClick = btnNovoClick
   end
   object btnSalvar: TSpeedButton
-    Left = 233
-    Top = 426
+    Left = 231
+    Top = 464
     Width = 65
     Height = 65
     Enabled = False
@@ -333,8 +368,8 @@ object frmCadastrarProduto: TfrmCadastrarProduto
     OnClick = btnSalvarClick
   end
   object btnEditar: TSpeedButton
-    Left = 347
-    Top = 426
+    Left = 345
+    Top = 464
     Width = 65
     Height = 65
     Glyph.Data = {
@@ -485,10 +520,11 @@ object frmCadastrarProduto: TfrmCadastrarProduto
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0852
       00000000000000000000000000000000000000000000000000004908FFFFFFFF
       FFFFFFFFFFFFFFFFFFFF}
+    OnClick = btnEditarClick
   end
   object btnExcluir: TSpeedButton
-    Left = 463
-    Top = 426
+    Left = 461
+    Top = 464
     Width = 65
     Height = 65
     Glyph.Data = {
@@ -832,10 +868,11 @@ object frmCadastrarProduto: TfrmCadastrarProduto
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFF}
+    OnClick = btnExcluirClick
   end
   object btnCancelar: TSpeedButton
-    Left = 585
-    Top = 426
+    Left = 583
+    Top = 464
     Width = 65
     Height = 65
     Enabled = False
@@ -1180,54 +1217,32 @@ object frmCadastrarProduto: TfrmCadastrarProduto
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFF}
+    OnClick = btnCancelarClick
   end
   object Label3: TLabel
-    Left = 50
-    Top = 323
-    Width = 31
+    Left = 460
+    Top = 304
+    Width = 23
     Height = 13
-    Caption = 'Nome:'
-    FocusControl = DBEdtNome
-  end
-  object Label4: TLabel
-    Left = 50
-    Top = 365
-    Width = 31
-    Height = 13
-    Caption = 'Pre'#231'o:'
-    FocusControl = DBEdtPreco
-  end
-  object Label5: TLabel
-    Left = 401
-    Top = 323
-    Width = 50
-    Height = 13
-    Caption = 'Descri'#231#227'o:'
-    FocusControl = DBEdtDescricao
+    Caption = 'CPF:'
+    FocusControl = DBEdtCPF
   end
   object Label6: TLabel
-    Left = 340
-    Top = 365
-    Width = 117
+    Left = 39
+    Top = 400
+    Width = 99
     Height = 13
-    Caption = 'Quantidade no estoque:'
-    FocusControl = DBEdtQtdEstoque
-  end
-  object edtBuscar: TEdit
-    Left = 87
-    Top = 48
-    Width = 354
-    Height = 21
-    TabOrder = 0
-    OnChange = edtBuscarChange
+    Caption = 'Data de nascimento:'
+    FocusControl = DBEdtDataNascimento
   end
   object DBGrid: TDBGrid
-    Left = 87
+    Left = 67
     Top = 88
-    Width = 665
+    Width = 695
     Height = 185
-    DataSource = DSprodutos
-    TabOrder = 1
+    DataSource = DM.DSclientes
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
+    TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -1238,81 +1253,117 @@ object frmCadastrarProduto: TfrmCadastrarProduto
         Expanded = False
         FieldName = 'id'
         Title.Caption = 'C'#243'digo'
-        Width = 50
+        Width = 45
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'nome'
         Title.Caption = 'Nome'
-        Width = 120
+        Width = 125
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'preco'
-        Title.Caption = 'Pre'#231'o'
+        FieldName = 'cpf'
+        Title.Caption = 'CPF'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'telefone'
+        Title.Caption = 'Telefone'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'email'
+        Title.Caption = 'E-mail'
+        Width = 180
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'dataNascimento'
+        Title.Caption = 'Nascimento'
         Width = 80
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'descricao'
-        Title.Caption = 'Descri'#231#227'o'
-        Width = 245
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'quantidadeNoEstoque'
-        Title.Caption = 'Quantidade no estoque'
-        Width = 130
+        FieldName = 'endereco'
+        Title.Caption = 'Endere'#231'o'
+        Width = 200
         Visible = True
       end>
   end
   object DBEdtNome: TDBEdit
-    Left = 87
-    Top = 320
+    Left = 157
+    Top = 301
     Width = 212
     Height = 21
     DataField = 'nome'
-    DataSource = DSprodutos
+    DataSource = DM.DSclientes
+    Enabled = False
+    TabOrder = 1
+  end
+  object DBEdtTelefone: TDBEdit
+    Left = 157
+    Top = 349
+    Width = 212
+    Height = 21
+    DataField = 'telefone'
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 2
   end
-  object DBEdtPreco: TDBEdit
-    Left = 87
-    Top = 362
+  object DBEdtEmail: TDBEdit
+    Left = 494
+    Top = 349
     Width = 212
     Height = 21
-    DataField = 'preco'
-    DataSource = DSprodutos
+    DataField = 'email'
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 3
   end
-  object DBEdtDescricao: TDBEdit
-    Left = 463
-    Top = 320
+  object DBEdtEndereco: TDBEdit
+    Left = 494
+    Top = 400
     Width = 212
     Height = 21
-    DataField = 'descricao'
-    DataSource = DSprodutos
+    DataField = 'endereco'
+    DataSource = DM.DSclientes
     Enabled = False
     TabOrder = 4
   end
-  object DBEdtQtdEstoque: TDBEdit
-    Left = 463
-    Top = 362
+  object edtBuscar: TEdit
+    Left = 67
+    Top = 48
+    Width = 354
+    Height = 21
+    TabOrder = 5
+    OnChange = edtBuscarChange
+  end
+  object DBEdtCPF: TDBEdit
+    Left = 494
+    Top = 301
     Width = 212
     Height = 21
-    DataField = 'quantidadeNoEstoque'
-    DataSource = DSprodutos
+    DataField = 'cpf'
+    DataSource = DM.DSclientes
     Enabled = False
-    TabOrder = 5
+    TabOrder = 6
   end
-  object DSprodutos: TDataSource
-    DataSet = DM.CDSprodutos
-    Left = 712
-    Top = 32
+  object DBEdtDataNascimento: TDBEdit
+    Left = 157
+    Top = 397
+    Width = 212
+    Height = 21
+    DataField = 'dataNascimento'
+    DataSource = DM.DSclientes
+    Enabled = False
+    TabOrder = 7
   end
 end

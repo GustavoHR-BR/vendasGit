@@ -1,11 +1,11 @@
-object frmCadastrarCliente: TfrmCadastrarCliente
+object frmCadastrarProduto: TfrmCadastrarProduto
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'Cadastro de clientes'
-  ClientHeight = 566
-  ClientWidth = 790
+  Caption = 'Cadastro de produtos'
+  ClientHeight = 530
+  ClientWidth = 795
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,40 +14,9 @@ object frmCadastrarCliente: TfrmCadastrarCliente
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
-  object Label2: TLabel
-    Left = 81
-    Top = 304
-    Width = 31
-    Height = 13
-    Caption = 'Nome:'
-    FocusControl = DBEdtNome
-  end
-  object Label4: TLabel
-    Left = 67
-    Top = 352
-    Width = 46
-    Height = 13
-    Caption = 'Telefone:'
-    FocusControl = DBEdtTelefone
-  end
-  object Label5: TLabel
-    Left = 420
-    Top = 352
-    Width = 32
-    Height = 13
-    Caption = 'E-mail:'
-    FocusControl = DBEdtEmail
-  end
-  object Label7: TLabel
-    Left = 399
-    Top = 400
-    Width = 49
-    Height = 13
-    Caption = 'Endere'#231'o:'
-    FocusControl = DBEdtEndereco
-  end
   object Label1: TLabel
     Left = 31
     Top = 51
@@ -56,8 +25,8 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     Caption = 'Pesquisar:'
   end
   object btnNovo: TSpeedButton
-    Left = 87
-    Top = 464
+    Left = 121
+    Top = 426
     Width = 65
     Height = 65
     Glyph.Data = {
@@ -211,8 +180,8 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnNovoClick
   end
   object btnSalvar: TSpeedButton
-    Left = 199
-    Top = 464
+    Left = 233
+    Top = 426
     Width = 65
     Height = 65
     Enabled = False
@@ -367,8 +336,8 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnSalvarClick
   end
   object btnEditar: TSpeedButton
-    Left = 313
-    Top = 464
+    Left = 347
+    Top = 426
     Width = 65
     Height = 65
     Glyph.Data = {
@@ -522,8 +491,8 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnEditarClick
   end
   object btnExcluir: TSpeedButton
-    Left = 429
-    Top = 464
+    Left = 463
+    Top = 426
     Width = 65
     Height = 65
     Glyph.Data = {
@@ -870,8 +839,8 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnExcluirClick
   end
   object btnCancelar: TSpeedButton
-    Left = 551
-    Top = 464
+    Left = 585
+    Top = 426
     Width = 65
     Height = 65
     Enabled = False
@@ -1219,29 +1188,53 @@ object frmCadastrarCliente: TfrmCadastrarCliente
     OnClick = btnCancelarClick
   end
   object Label3: TLabel
-    Left = 429
-    Top = 304
-    Width = 23
+    Left = 50
+    Top = 323
+    Width = 31
     Height = 13
-    Caption = 'CPF:'
-    FocusControl = DBEdtCPF
+    Caption = 'Nome:'
+    FocusControl = DBEdtNome
+  end
+  object Label4: TLabel
+    Left = 50
+    Top = 365
+    Width = 31
+    Height = 13
+    Caption = 'Pre'#231'o:'
+    FocusControl = DBEdtPreco
+  end
+  object Label5: TLabel
+    Left = 401
+    Top = 323
+    Width = 50
+    Height = 13
+    Caption = 'Descri'#231#227'o:'
+    FocusControl = DBEdtDescricao
   end
   object Label6: TLabel
-    Left = 8
-    Top = 400
-    Width = 99
+    Left = 340
+    Top = 365
+    Width = 117
     Height = 13
-    Caption = 'Data de nascimento:'
-    FocusControl = DBEdtDataNascimento
+    Caption = 'Quantidade no estoque:'
+    FocusControl = DBEdtQtdEstoque
   end
-  object DBGridClientes: TDBGrid
-    Left = 8
-    Top = 88
-    Width = 765
-    Height = 185
-    DataSource = DSclientes
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
+  object edtBuscar: TEdit
+    Left = 87
+    Top = 48
+    Width = 354
+    Height = 21
     TabOrder = 0
+    OnChange = edtBuscarChange
+  end
+  object DBGrid: TDBGrid
+    Left = 87
+    Top = 88
+    Width = 665
+    Height = 185
+    DataSource = DM.DSprodutos
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
+    TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -1252,122 +1245,76 @@ object frmCadastrarCliente: TfrmCadastrarCliente
         Expanded = False
         FieldName = 'id'
         Title.Caption = 'C'#243'digo'
-        Width = 45
+        Width = 50
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'nome'
         Title.Caption = 'Nome'
-        Width = 125
+        Width = 120
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'cpf'
-        Title.Caption = 'CPF'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'telefone'
-        Title.Caption = 'Telefone'
-        Width = 100
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'email'
-        Title.Caption = 'E-mail'
-        Width = 180
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'dataNascimento'
-        Title.Caption = 'Nascimento'
+        FieldName = 'preco'
+        Title.Caption = 'Pre'#231'o'
         Width = 80
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'endereco'
-        Title.Caption = 'Endere'#231'o'
-        Width = 200
+        FieldName = 'descricao'
+        Title.Caption = 'Descri'#231#227'o'
+        Width = 245
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'quantidadeNoEstoque'
+        Title.Caption = 'Quantidade no estoque'
+        Width = 130
         Visible = True
       end>
   end
   object DBEdtNome: TDBEdit
-    Left = 126
-    Top = 301
+    Left = 87
+    Top = 320
     Width = 212
     Height = 21
     DataField = 'nome'
-    DataSource = DSclientes
-    Enabled = False
-    TabOrder = 1
-  end
-  object DBEdtTelefone: TDBEdit
-    Left = 126
-    Top = 349
-    Width = 212
-    Height = 21
-    DataField = 'telefone'
-    DataSource = DSclientes
+    DataSource = DM.DSprodutos
     Enabled = False
     TabOrder = 2
   end
-  object DBEdtEmail: TDBEdit
-    Left = 463
-    Top = 349
+  object DBEdtPreco: TDBEdit
+    Left = 87
+    Top = 362
     Width = 212
     Height = 21
-    DataField = 'email'
-    DataSource = DSclientes
+    DataField = 'preco'
+    DataSource = DM.DSprodutos
     Enabled = False
     TabOrder = 3
   end
-  object DBEdtEndereco: TDBEdit
+  object DBEdtDescricao: TDBEdit
     Left = 463
-    Top = 400
+    Top = 320
     Width = 212
     Height = 21
-    DataField = 'endereco'
-    DataSource = DSclientes
+    DataField = 'descricao'
+    DataSource = DM.DSprodutos
     Enabled = False
     TabOrder = 4
   end
-  object edtBuscar: TEdit
-    Left = 87
-    Top = 48
-    Width = 354
-    Height = 21
-    TabOrder = 5
-    OnChange = edtBuscarChange
-  end
-  object DBEdtCPF: TDBEdit
+  object DBEdtQtdEstoque: TDBEdit
     Left = 463
-    Top = 301
+    Top = 362
     Width = 212
     Height = 21
-    DataField = 'cpf'
-    DataSource = DSclientes
+    DataField = 'quantidadeNoEstoque'
+    DataSource = DM.DSprodutos
     Enabled = False
-    TabOrder = 6
-  end
-  object DBEdtDataNascimento: TDBEdit
-    Left = 126
-    Top = 397
-    Width = 212
-    Height = 21
-    DataField = 'dataNascimento'
-    DataSource = DSclientes
-    Enabled = False
-    TabOrder = 7
-  end
-  object DSclientes: TDataSource
-    DataSet = DM.CDSclientes
-    Left = 712
-    Top = 312
+    TabOrder = 5
   end
 end

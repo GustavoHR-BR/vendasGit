@@ -31,6 +31,7 @@ type
     edtDesconto: TEdit;
     edtValorTotal: TEdit;
     Label9: TLabel;
+    Label10: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure edtBuscarChange(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -56,18 +57,19 @@ uses uCadastrarCliente, uCadastrarProduto, uCadastrarVenda, uDataModule,
   uFunctions, uMain, uPedidosDeVenda;
 
 procedure TfrmAdicionarItemAVenda.btnConfirmarClick(Sender: TObject);
+var
+id : integer;
 begin
 
-  dm.CDSitens.Close;
-  dm.dataSetItens.Close;
-  dm.dataSetItens.CommandText := 'select * from item where fkVenda = ' +
-    dm.CDSvendasid.Text;
+//  dm.CDSitens.Close;
+//  dm.dataSetItens.Close;
+
+
   dm.dataSetItens.Open;
   dm.CDSitens.Open;
-  frmCadastrarVenda.DBGridItensDaVenda.DataSource := dm.DSitens;
 
   dm.CDSitens.Append;
-  dm.CDSitensid.AsInteger := getId('id', 'item');
+  dm.CDSitensid.AsInteger := getId('id','item') + frmCadastrarVenda.DBGridItensDaVenda.DataSource.DataSet.RecordCount;
   dm.CDSitensfkVenda.AsInteger := StrToInt(dm.CDSvendasid.Text);
   dm.CDSitensfkproduto.AsInteger := StrToInt(dm.CDSprodutosid.Text);
   dm.CDSitensnome.Text := dm.CDSprodutosnome.Text;
@@ -75,6 +77,10 @@ begin
   dm.CDSitensdescricao.Text := dm.CDSprodutosdescricao.Text;
   dm.CDSitensquantidade.AsInteger := StrToInt(edtQuantidade.Text);
   dm.CDSitens.Post;
+
+  dm.dataSetItens.CommandText := 'select * from item where fkVenda = ' +
+    dm.CDSvendasid.Text + ' order by id asc;';
+  frmCadastrarVenda.DBGridItensDaVenda.DataSource := dm.DSitens;
 
   frmAdicionarItemAVenda.Close;
 

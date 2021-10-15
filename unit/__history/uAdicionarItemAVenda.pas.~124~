@@ -31,12 +31,15 @@ type
     edtDesconto: TEdit;
     edtValorTotal: TEdit;
     Label9: TLabel;
-    Button1: TButton;
+    Label10: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure edtBuscarChange(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure edtQuantidadeChange(Sender: TObject);
+    procedure edtDescontoChange(Sender: TObject);
+    procedure edtAcrescimoChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,18 +57,19 @@ uses uCadastrarCliente, uCadastrarProduto, uCadastrarVenda, uDataModule,
   uFunctions, uMain, uPedidosDeVenda;
 
 procedure TfrmAdicionarItemAVenda.btnConfirmarClick(Sender: TObject);
+var
+id : integer;
 begin
 
-  dm.CDSitens.Close;
-  dm.dataSetItens.Close;
-  dm.dataSetItens.CommandText := 'select * from item where fkVenda = ' +
-    dm.CDSvendasid.Text;
+//  dm.CDSitens.Close;
+//  dm.dataSetItens.Close;
+
+
   dm.dataSetItens.Open;
   dm.CDSitens.Open;
-  frmCadastrarVenda.DBGridItensDaVenda.DataSource := dm.DSitens;
 
   dm.CDSitens.Append;
-  dm.CDSitensid.AsInteger := getId('id', 'item');
+  dm.CDSitensid.AsInteger := getId('id','item') + frmCadastrarVenda.DBGridItensDaVenda.DataSource.DataSet.RecordCount;
   dm.CDSitensfkVenda.AsInteger := StrToInt(dm.CDSvendasid.Text);
   dm.CDSitensfkproduto.AsInteger := StrToInt(dm.CDSprodutosid.Text);
   dm.CDSitensnome.Text := dm.CDSprodutosnome.Text;
@@ -74,11 +78,21 @@ begin
   dm.CDSitensquantidade.AsInteger := StrToInt(edtQuantidade.Text);
   dm.CDSitens.Post;
 
+
+  dm.dataSetItens.CommandText := 'select * from item where fkVenda = ' +
+    dm.CDSvendasid.Text + ' ;';
+  frmCadastrarVenda.DBGridItensDaVenda.DataSource := dm.DSitens;
+
   frmAdicionarItemAVenda.Close;
 
 end;
 
 procedure TfrmAdicionarItemAVenda.Button1Click(Sender: TObject);
+begin
+  edtValorTotal.Text := FloatToStr(valorTotalDoItem);
+end;
+
+procedure TfrmAdicionarItemAVenda.edtAcrescimoChange(Sender: TObject);
 begin
   edtValorTotal.Text := FloatToStr(valorTotalDoItem);
 end;
@@ -96,10 +110,22 @@ begin
     btnConfirmar.Enabled := true;
 end;
 
+procedure TfrmAdicionarItemAVenda.edtDescontoChange(Sender: TObject);
+begin
+  edtValorTotal.Text := FloatToStr(valorTotalDoItem);
+end;
+
+procedure TfrmAdicionarItemAVenda.edtQuantidadeChange(Sender: TObject);
+begin
+  edtValorTotal.Text := FloatToStr(valorTotalDoItem);
+end;
+
 procedure TfrmAdicionarItemAVenda.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  frmCadastrarVenda.edtSubTotal.Text := FloatToStr(valorTotalDoItem);
+  frmCadastrarVenda.edtSubTotal.Text :=
+    FloatToStr(StrToFloat(frmCadastrarVenda.edtSubTotal.Text) +
+    valorTotalDoItem);
 end;
 
 procedure TfrmAdicionarItemAVenda.FormCreate(Sender: TObject);

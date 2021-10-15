@@ -85,6 +85,21 @@ object frmAdicionarItemAVenda: TfrmAdicionarItemAVenda
     Height = 13
     Caption = 'Valor total:'
   end
+  object Label10: TLabel
+    Left = -3
+    Top = 102
+    Width = 540
+    Height = 23
+    Caption = 
+      '----------------------------------------------------------------' +
+      '--------------------------------------------------------'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object edtBuscar: TEdit
     Left = 24
     Top = 43
