@@ -5,7 +5,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
   BorderStyle = bsSingle
   Caption = 'Pedidos de venda'
   ClientHeight = 449
-  ClientWidth = 679
+  ClientWidth = 774
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
   object DBGridVendas: TDBGrid
     Left = 0
     Top = 64
-    Width = 681
+    Width = 777
     Height = 193
     DataSource = DSvendas
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
@@ -64,7 +64,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
   object Panel1: TPanel
     Left = 0
     Top = 392
-    Width = 689
+    Width = 777
     Height = 58
     TabOrder = 1
     object btnNovo: TSpeedButton
@@ -90,7 +90,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
       Caption = 'Imprimir'
     end
     object btnSair: TSpeedButton
-      Left = 584
+      Left = 672
       Top = 8
       Width = 81
       Height = 33
@@ -100,49 +100,49 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 681
+    Width = 777
     Height = 65
     TabOrder = 2
     object Label1: TLabel
       Left = 16
-      Top = 36
+      Top = 34
       Width = 70
       Height = 13
       Caption = 'Buscar cliente:'
     end
     object Label2: TLabel
-      Left = 376
-      Top = 11
+      Left = 446
+      Top = 10
       Width = 23
       Height = 13
       Caption = 'CPF:'
     end
     object Label3: TLabel
-      Left = 503
-      Top = 11
+      Left = 573
+      Top = 10
       Width = 31
       Height = 13
       Caption = 'Nome:'
     end
     object edtBuscar: TEdit
       Left = 92
-      Top = 31
+      Top = 29
       Width = 229
       Height = 21
       TabOrder = 0
       OnChange = edtBuscarChange
     end
     object edtCPF: TEdit
-      Left = 376
-      Top = 30
+      Left = 446
+      Top = 29
       Width = 121
       Height = 21
       Enabled = False
       TabOrder = 1
     end
     object edtNome: TEdit
-      Left = 503
-      Top = 30
+      Left = 573
+      Top = 29
       Width = 162
       Height = 21
       Enabled = False
@@ -152,7 +152,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
   object DBGridProdutos: TDBGrid
     Left = 0
     Top = 256
-    Width = 681
+    Width = 777
     Height = 130
     DataSource = DSitem
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
@@ -215,22 +215,22 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
   end
   object DSvendas: TDataSource
     DataSet = DM.CDSvendas
-    Left = 408
+    Left = 440
     Top = 400
   end
   object DSclientes: TDataSource
     DataSet = DM.CDSclientes
-    Left = 464
+    Left = 528
     Top = 400
   end
   object DSprodutos: TDataSource
     DataSet = DM.CDSprodutos
-    Left = 528
+    Left = 600
     Top = 400
   end
   object DSitem: TDataSource
     DataSet = DM.CDSitens
-    Left = 360
+    Left = 368
     Top = 400
   end
 end

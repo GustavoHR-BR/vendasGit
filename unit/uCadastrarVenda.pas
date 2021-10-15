@@ -3,7 +3,8 @@ unit uCadastrarVenda;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
   Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.ExtCtrls;
 
@@ -38,6 +39,12 @@ type
     Panel1: TPanel;
     btnSair: TSpeedButton;
     btnConfirmarVenda: TSpeedButton;
+    btnSelecionar: TButton;
+    dsItens: TDataSource;
+    procedure edtBuscarChange(Sender: TObject);
+    procedure btnSelecionarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure btnAddItemClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,5 +57,42 @@ var
 implementation
 
 {$R *.dfm}
+
+uses uCadastrarCliente, uCadastrarProduto, uDataModule, uFunctions, uMain,
+  uPedidosDeVenda;
+
+procedure TfrmCadastrarVenda.btnAddItemClick(Sender: TObject);
+begin
+  //
+end;
+
+procedure TfrmCadastrarVenda.btnSelecionarClick(Sender: TObject);
+begin
+  edtBuscar.Text := dm.CDSclientesnome.Text;
+  btnAddItem.Enabled := true;
+end;
+
+procedure TfrmCadastrarVenda.edtBuscarChange(Sender: TObject);
+begin
+  dm.CDSclientes.Close;
+  dm.queryClientes.Close;
+  dm.queryClientes.SQL.Clear;
+  dm.queryClientes.SQL.Add('select * from cliente where nome LIKE "%' +
+    LowerCase(Trim(edtBuscar.Text)) + '%";');
+  dm.CDSclientes.Open;
+
+  if edtBuscar.Text <> dm.CDSclientesnome.Text then
+    btnAddItem.Enabled := false;
+end;
+
+procedure TfrmCadastrarVenda.FormCreate(Sender: TObject);
+begin
+
+  DBEdtCPF.Clear;
+  DBEdtTelefone.Clear;
+  DBEdtEmail.Clear;
+  DBEdtDataNascimento.Clear;
+  DBEdtEndereco.Clear;
+end;
 
 end.

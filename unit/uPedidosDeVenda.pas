@@ -50,8 +50,12 @@ uses uCadastrarCliente, uCadastrarProduto, uCadastrarVenda, uDataModule,
 
 procedure TfrmPedidosDeVenda.btnNovoClick(Sender: TObject);
 begin
-  //
-
+  Application.CreateForm(TfrmCadastrarVenda, frmCadastrarVenda);
+  try
+    frmCadastrarVenda.ShowModal;
+  finally
+    FreeAndNil(frmCadastrarVenda);
+  end;
 end;
 
 procedure TfrmPedidosDeVenda.DBGridVendasCellClick(Column: TColumn);
@@ -84,6 +88,7 @@ begin
       DBGridVendas.DataSource := DSvendas;
       edtCPF.Clear;
       edtNome.Clear;
+
       selectItemFromVenda;
       DBGridProdutos.DataSource := DSitem;
     end
@@ -94,6 +99,7 @@ begin
       DM.queryVendas.SQL.Clear;
       DM.queryVendas.SQL.Add('select * from venda where fkCliente = ' +
         DM.CDSclientesid.Text + ';');
+
       DM.CDSvendas.Open;
       DBGridVendas.DataSource := DSvendas;
       selectItemFromVenda;

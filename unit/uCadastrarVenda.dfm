@@ -1,9 +1,11 @@
 object frmCadastrarVenda: TfrmCadastrarVenda
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Cadastro de venda'
-  ClientHeight = 447
-  ClientWidth = 807
+  ClientHeight = 450
+  ClientWidth = 817
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +13,8 @@ object frmCadastrarVenda: TfrmCadastrarVenda
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object lbl: TLabel
@@ -21,7 +25,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Caption = 'Selecione o cliente:'
   end
   object Label3: TLabel
-    Left = 376
+    Left = 456
     Top = 32
     Width = 23
     Height = 13
@@ -29,7 +33,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     FocusControl = DBEdtCPF
   end
   object Label4: TLabel
-    Left = 546
+    Left = 626
     Top = 32
     Width = 46
     Height = 13
@@ -80,18 +84,25 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Top = 141
     Width = 92
     Height = 28
+    Caption = 'Adicionar item'
+    Enabled = False
+    OnClick = btnAddItemClick
   end
   object btnEditarItem: TSpeedButton
-    Left = 122
+    Left = 133
     Top = 141
     Width = 92
     Height = 28
+    Caption = 'Editar item'
+    Enabled = False
   end
   object btnRemoverItem: TSpeedButton
-    Left = 220
+    Left = 244
     Top = 141
     Width = 92
     Height = 28
+    Caption = 'Remover item'
+    Enabled = False
   end
   object Label2: TLabel
     Left = 24
@@ -127,9 +138,10 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Width = 230
     Height = 21
     TabOrder = 0
+    OnChange = edtBuscarChange
   end
   object DBEdtCPF: TDBEdit
-    Left = 408
+    Left = 488
     Top = 29
     Width = 105
     Height = 21
@@ -139,7 +151,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     TabOrder = 1
   end
   object DBEdtTelefone: TDBEdit
-    Left = 598
+    Left = 678
     Top = 29
     Width = 105
     Height = 21
@@ -223,27 +235,43 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     TabOrder = 10
   end
   object Panel1: TPanel
-    Left = 8
+    Left = 0
     Top = 400
     Width = 817
-    Height = 49
+    Height = 55
     TabOrder = 11
     object btnSair: TSpeedButton
-      Left = 697
+      Left = 704
       Top = 5
-      Width = 92
+      Width = 85
       Height = 28
+      Caption = 'Sair'
     end
     object btnConfirmarVenda: TSpeedButton
-      Left = 590
+      Left = 591
       Top = 5
-      Width = 92
+      Width = 99
       Height = 28
+      Caption = 'Confrimar venda'
     end
+  end
+  object btnSelecionar: TButton
+    Left = 358
+    Top = 27
+    Width = 75
+    Height = 25
+    Caption = 'Selecionar'
+    TabOrder = 12
+    OnClick = btnSelecionarClick
   end
   object DSclientes: TDataSource
     DataSet = DM.CDSclientes
-    Left = 736
-    Top = 16
+    Left = 24
+    Top = 400
+  end
+  object dsItens: TDataSource
+    DataSet = DM.CDSitens
+    Left = 88
+    Top = 400
   end
 end
