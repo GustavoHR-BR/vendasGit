@@ -63,7 +63,6 @@ begin
   dm.SQLConnection.Open;
 
   dm.CDSitens.Edit;
-  dm.CDSitensfkVenda.AsInteger := StrToInt(dm.CDSvendasid.Text);
   dm.CDSitensfkproduto.AsInteger := StrToInt(dm.CDSprodutosid.Text);
   dm.CDSitensnome.Text := dm.CDSprodutosnome.Text;
   dm.CDSitenspreco.Text := dm.CDSprodutospreco.Text;
@@ -71,6 +70,8 @@ begin
   dm.CDSitensquantidade.AsInteger := StrToInt(edtQuantidade.Text);
   dm.CDSitens.Post;
   dm.CDSitens.ApplyUpdates(2);
+
+  frmCadastrarVenda.btnRemoverItem.Enabled := true;
 
   frmCadastrarVenda.edtDesconto.Enabled := true;
   frmCadastrarVenda.edtFrete.Enabled := true;
@@ -143,6 +144,7 @@ begin
   btnConfirmar.Enabled := false;
   btnCancelar.Enabled := false;
   edtBuscar.Clear;
+  edtValorTotal.Text := '0';
   DBEdtNome.Clear;
   DBEdtPreco.Clear;
   DBEdtDescricao.Clear;
@@ -159,8 +161,27 @@ begin
   end
   else
   begin
+
     dm.CDSitens.Close;
+    dm.dataSetItens.Close;
+    dm.dataSetItens.CommandText := 'delete from item where (id = ' +
+      floattostr((getId('id', 'item') - 1)) + ') and (fkVenda = ' +
+      dm.CDSvendasid.Text + ');';
+    try
+      dm.dataSetItens.Open;
+      dm.CDSitens.Open;
+    except
+      on E: Exception do
+    end;
+
+    dm.CDSitens.Close;
+    dm.dataSetItens.Close;
+    dm.dataSetItens.CommandText := 'select * from item where fkVenda = ' +
+      dm.CDSvendasid.Text + ' order by id asc;';
+    dm.dataSetItens.Open;
     dm.CDSitens.Open;
+    frmCadastrarVenda.DBGridItensDaVenda.DataSource := dm.DSitens;
+
     frmAdicionarItemAVenda.Close;
   end;
 end;
@@ -172,8 +193,10 @@ begin
   DBEdtDescricao.Clear;
   DBEdtEstoque.Text := '0';
 
+  dm.CDSitens.Open;
   dm.CDSitens.Append;
   dm.CDSitensid.AsInteger := getId('id', 'item');
+  dm.CDSitensfkVenda.AsInteger := StrToInt(dm.CDSvendasid.Text);
   try
     dm.CDSitens.Post;
     dm.CDSitens.ApplyUpdates(0);

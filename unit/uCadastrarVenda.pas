@@ -45,10 +45,12 @@ type
     procedure btnAddItemClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure edtDescontoChange(Sender: TObject);
     procedure edtFreteChange(Sender: TObject);
     procedure btnConfirmarVendaClick(Sender: TObject);
+    procedure btnRemoverItemClick(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -124,6 +126,33 @@ begin
 
 end;
 
+procedure TfrmCadastrarVenda.btnRemoverItemClick(Sender: TObject);
+begin
+  //
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
+
+  if Application.MessageBox('Deseja realmente excluir?', 'Atenção',
+    MB_YESNO + MB_ICONQUESTION) = mrYes then
+  begin
+    dm.CDSitens.Delete;
+    try
+      dm.CDSitens.ApplyUpdates(0);
+      ShowMessage('Item excluído com sucesso! ');
+    except
+      on E: Exception do
+      begin
+        ShowMessage('Erro ao deletar item! ' + E.ToString);
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmCadastrarVenda.btnSairClick(Sender: TObject);
+begin
+  frmCadastrarVenda.Close;
+end;
+
 procedure TfrmCadastrarVenda.btnSelecionarClick(Sender: TObject);
 begin
   edtBuscar.Text := dm.CDSclientesnome.Text;
@@ -131,7 +160,6 @@ begin
   btnSelecionar.Enabled := false;
   edtBuscar.Enabled := false;
   btnCancelar.Enabled := true;
-
 end;
 
 procedure TfrmCadastrarVenda.edtBuscarChange(Sender: TObject);
@@ -164,26 +192,48 @@ procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
 begin
   if Tag <> 1 then
   begin
-    frmPedidosDeVenda.DBGridProdutos.DataSource := dm.DSitens;
-    dm.CDSvendas.Close;
-    dm.dataSetItens.Close;
-    dm.dataSetItens.CommandText := 'delete from venda where id = ' +
-      IntToStr((getId('id', 'venda') - 1));
-    try
-      dm.dataSetItens.Open;
+    if Application.MessageBox('Deseja realmente fechar?', 'Atenção',
+      MB_YESNO + MB_ICONQUESTION) = mrYes then
+    begin
+      dm.CDSitens.Close;
+      dm.dataSetItens.Close;
+      dm.dataSetItens.CommandText := 'delete from item where (id = ' +
+        FloatToStr((getId('id', 'item') - 1)) + ') and (fkVenda = ' +
+        dm.CDSvendasid.Text + ');';
+      try
+        dm.dataSetItens.Open;
+        dm.CDSitens.Open;
+      except
+        on E: Exception do
+      end;
+
+      dm.CDSvendas.Close;
+      dm.dataSetItens.Close;
+      dm.dataSetVendas.CommandText := 'delete from venda where id = ' +
+        IntToStr((getId('id', 'venda') - 1));
+      try
+        dm.dataSetVendas.Open;
+        dm.CDSvendas.Open;
+      except
+        on E: Exception do
+      end;
+
+      dm.CDSvendas.Close;
+      dm.dataSetVendas.Close;
+      dm.dataSetVendas.CommandText := 'select * from venda order by id asc;';
       dm.CDSvendas.Open;
-    except
-      on E: Exception do
-    end;
+      dm.dataSetVendas.Open;
 
-    dm.CDSvendas.Close;
-    dm.dataSetVendas.Close;
-    dm.dataSetVendas.CommandText := 'select * from venda order by id asc;';
-    dm.CDSvendas.Open;
-    dm.dataSetVendas.Open;
-
-    frmPedidosDeVenda.DBGridVendas.DataSource := dm.DSvendas;
-    selectItemFromVenda;
+      frmPedidosDeVenda.DBGridVendas.DataSource := dm.DSvendas;
+      selectItemFromVenda;
+      frmPedidosDeVenda.Close;
+    end
+    else
+      Abort;
+  end
+  else
+  begin
+    frmCadastrarVenda.Close;
   end;
 end;
 

@@ -104,6 +104,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Height = 28
     Caption = 'Remover item'
     Enabled = False
+    OnClick = btnRemoverItemClick
   end
   object Label2: TLabel
     Left = 24
@@ -287,6 +288,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
       Width = 85
       Height = 28
       Caption = 'Sair'
+      OnClick = btnSairClick
     end
     object btnConfirmarVenda: TSpeedButton
       Left = 591
