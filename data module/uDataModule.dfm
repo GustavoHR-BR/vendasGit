@@ -74,6 +74,7 @@ object DM: TDM
     Top = 88
     object CDSclientesid: TIntegerField
       FieldName = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object CDSclientesnome: TStringField
@@ -116,6 +117,7 @@ object DM: TDM
     Top = 160
     object CDSprodutosid: TIntegerField
       FieldName = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object CDSprodutosnome: TStringField
@@ -162,6 +164,7 @@ object DM: TDM
     end
   end
   object CDSitens: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'DSPitens'
@@ -169,6 +172,7 @@ object DM: TDM
     Top = 320
     object CDSitensid: TIntegerField
       FieldName = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object CDSitensfkVenda: TIntegerField
@@ -240,19 +244,17 @@ object DM: TDM
   end
   object dataSetProdutos: TSQLDataSet
     SchemaName = 'gustavo_reblin'
-    Active = True
-    CommandText = 'select * from produto;'
+    CommandText = 'select * from produto limit 0;'
     DbxCommandType = 'Dbx.SQL'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = SQLConnection
     Left = 48
-    Top = 168
+    Top = 160
   end
   object dataSetClientes: TSQLDataSet
     SchemaName = 'gustavo_reblin'
-    Active = True
-    CommandText = 'select * from cliente;'
+    CommandText = 'select * from cliente limit 0;'
     DbxCommandType = 'Dbx.SQL'
     MaxBlobSize = -1
     Params = <>

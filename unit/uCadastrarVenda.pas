@@ -48,6 +48,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure edtDescontoChange(Sender: TObject);
     procedure edtFreteChange(Sender: TObject);
+    procedure btnConfirmarVendaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -92,8 +93,31 @@ begin
   dm.dataSetVendas.CommandText :=
     ('delete from venda where id = ' +
     IntToStr((getId('id', 'venda') - 1)) + ';');
-  dm.dataSetVendas.Open;
-  dm.CDSvendas.Open;
+  try
+    dm.dataSetVendas.Open;
+    dm.CDSvendas.Open;
+  except
+    on E: Exception do
+  end;
+end;
+
+procedure TfrmCadastrarVenda.btnConfirmarVendaClick(Sender: TObject);
+begin
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
+
+  dm.CDSvendasfkCliente.Text := dm.CDSclientesid.Text;
+  dm.CDSvendastotal.Text := edtValorTotal.Text;
+  dm.CDSvendasdata.Text := DateToStr(Date);
+  try
+    dm.CDSvendas.ApplyUpdates(2);
+    dm.CDSitens.ApplyUpdates(2);
+    ShowMessage('Venda realizada com sucesso! ');
+  except
+    on E: Exception do
+      ShowMessage('Erro ao realizar a venda! ' + E.ToString);
+  end;
+
 end;
 
 procedure TfrmCadastrarVenda.btnSelecionarClick(Sender: TObject);
@@ -104,16 +128,6 @@ begin
   edtBuscar.Enabled := false;
   btnCancelar.Enabled := true;
 
-  dm.CDSvendas.Append;
-  dm.CDSvendasid.AsInteger := getId('id', 'venda');
-  dm.CDSvendasfkCliente.AsInteger := StrToInt(dm.CDSclientesid.Text);
-  dm.CDSvendas.Post;
-  try
-    dm.CDSvendas.ApplyUpdates(0);
-  except
-    on E: Exception do
-      ShowMessage('Erro' + E.ToString);
-  end;
 end;
 
 procedure TfrmCadastrarVenda.edtBuscarChange(Sender: TObject);
@@ -121,8 +135,9 @@ begin
 
   dm.CDSclientes.Close;
   dm.dataSetClientes.Close;
-  dm.dataSetClientes.CommandText := ('select * from cliente where nome LIKE "%'
-  + LowerCase(Trim(edtBuscar.Text)) + '%";');
+  dm.dataSetClientes.CommandText :=
+    ('select * from cliente where nome LIKE "%' + LowerCase(Trim(edtBuscar.Text)
+    ) + '%";');
   dm.dataSetClientes.Open;
   dm.CDSclientes.Open;
 
@@ -132,12 +147,12 @@ end;
 
 procedure TfrmCadastrarVenda.edtDescontoChange(Sender: TObject);
 begin
-  // edtTotal := função total;
+  edtValorTotal.Text := FloatToStr(valorTotalDaVenda);
 end;
 
 procedure TfrmCadastrarVenda.edtFreteChange(Sender: TObject);
 begin
-  // edtTotal := função total;
+  edtValorTotal.Text := FloatToStr(valorTotalDaVenda);
 end;
 
 procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
@@ -155,6 +170,15 @@ begin
   dm.dataSetItens.Open;
   dm.CDSitens.Open;
   DBGridItensDaVenda.DataSource := dm.DSitens;
+
+  dm.CDSvendas.Append;
+  dm.CDSvendasid.AsInteger := getId('id', 'venda');
+  try
+    dm.CDSvendas.Post;
+    dm.CDSvendas.ApplyUpdates(0);
+  except
+    on E: Exception do
+  end;
 
   DBEdtCPF.Clear;
   DBEdtTelefone.Clear;

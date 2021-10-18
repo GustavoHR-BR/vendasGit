@@ -51,56 +51,72 @@ uses uCadastrarCliente, uDataModule, uFunctions, uMain;
 procedure TfrmCadastrarProduto.edtBuscarChange(Sender: TObject);
 begin
 
-  dm.CDSprodutos.Close;
-  dm.dataSetProdutos.Close;
-  dm.dataSetProdutos.CommandText := ('select * from produto where nome LIKE "%' +
-    LowerCase(Trim(edtBuscar.Text)) + '%";');
-  dm.dataSetProdutos.Open;
-  dm.CDSprodutos.Open;
-  DBGrid.DataSource := DM.DSprodutos;
+  if edtBuscar.Text = '' then
+  begin
+    dm.CDSprodutos.Close;
+    dm.dataSetProdutos.Close;
+    dm.dataSetProdutos.CommandText :=
+      ('select * from produto limit 0');
+    dm.dataSetProdutos.Open;
+    dm.CDSprodutos.Open;
+    DBGrid.DataSource := dm.DSprodutos;
+  end
+  else
+  begin
+    dm.CDSprodutos.Close;
+    dm.dataSetProdutos.Close;
+    dm.dataSetProdutos.CommandText :=
+      ('select * from produto where nome LIKE "%' +
+      LowerCase(Trim(edtBuscar.Text)) + '%" order by id asc;');
+    dm.dataSetProdutos.Open;
+    dm.CDSprodutos.Open;
+    DBGrid.DataSource := dm.DSprodutos;
+  end;
 end;
 
 procedure TfrmCadastrarProduto.btnNovoClick(Sender: TObject);
 begin
-  DM.SQLConnection.Close;
-  DM.SQLConnection.Open;
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
 
   btnEnableProduto(false);
   edtsEnableProduto(true);
   edtBuscar.Enabled := false;
   DBGrid.Enabled := false;
 
-  DM.CDSprodutos.Append;
+  dm.CDSprodutos.Append;
   DBEdtNome.setfocus;
 end;
 
 procedure TfrmCadastrarProduto.btnSalvarClick(Sender: TObject);
 begin
-  DM.SQLConnection.Close;
-  DM.SQLConnection.Open;
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
 
-  if DM.CDSprodutos.State in [dsInsert] then
+  if dm.CDSprodutos.State in [dsInsert] then
   begin
 
-    DM.CDSprodutosid.AsInteger := getId('id', 'produto');
-    DM.CDSprodutos.Post;
+    dm.CDSprodutosid.AsInteger := getId('id', 'produto');
+    dm.CDSprodutos.Post;
 
     try
-      DM.CDSprodutos.ApplyUpdates(0);
+      dm.CDSprodutos.ApplyUpdates(0);
       btnEnableProduto(true);
       edtsEnableProduto(false);
       ShowMessage('Sucesso ao inserir registro');
+      DBGrid.Enabled := true;
+      edtBuscar.Enabled := true;
     except
       on E: Exception do
         ShowMessage('Erro ao inserir registro-  ' + E.ToString);
     end;
   end
-  else if DM.CDSprodutos.State in [dsEdit] then
+  else if dm.CDSprodutos.State in [dsEdit] then
   begin
 
-    DM.CDSprodutos.Post;
+    dm.CDSprodutos.Post;
     try
-      DM.CDSprodutos.ApplyUpdates(0);
+      dm.CDSprodutos.ApplyUpdates(0);
       btnEnableProduto(true);
       edtsEnableProduto(false);
       ShowMessage('Sucesso ao editar registro');
@@ -119,15 +135,15 @@ end;
 
 procedure TfrmCadastrarProduto.btnExcluirClick(Sender: TObject);
 begin
-  DM.SQLConnection.Close;
-  DM.SQLConnection.Open;
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
 
   if Application.MessageBox('Deseja realmente excluir?', 'Atenção',
     MB_YESNO + MB_ICONQUESTION) = mrYes then
   begin
-    DM.CDSprodutos.Delete;
+    dm.CDSprodutos.Delete;
     try
-      DM.CDSprodutos.ApplyUpdates(0);
+      dm.CDSprodutos.ApplyUpdates(0);
       ShowMessage('Registro excluído com sucesso! ');
     except
       on E: Exception do
@@ -141,7 +157,7 @@ end;
 
 procedure TfrmCadastrarProduto.btnCancelarClick(Sender: TObject);
 begin
-  DM.CDSprodutos.Cancel;
+  dm.CDSprodutos.Cancel;
   edtsEnableProduto(false);
   btnEnableProduto(true);
 end;
@@ -149,7 +165,7 @@ end;
 procedure TfrmCadastrarProduto.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  if DM.CDSprodutos.State in [dsEdit, dsInsert] then
+  if dm.CDSprodutos.State in [dsEdit, dsInsert] then
   begin
     ShowMessage('Existe uma alteração pendente. Conclua-a primeiro!');
     Abort;
@@ -159,7 +175,7 @@ begin
     if Application.MessageBox('Deseja realmente fechar?', 'Atenção',
       MB_YESNO + MB_ICONQUESTION) = mrYes then
     begin
-      DM.CDSprodutos.Close;
+      dm.CDSprodutos.Close;
       frmCadastrarProduto.Close;
     end
     else

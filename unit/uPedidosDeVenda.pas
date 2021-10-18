@@ -75,12 +75,13 @@ end;
 procedure TfrmPedidosDeVenda.edtBuscarChange(Sender: TObject);
 begin
 
-  dm.CDSclientes.Close;
-  dm.dataSetClientes.Close;
-  dm.dataSetClientes.CommandText := ('select * from cliente where nome LIKE "%' +
-    LowerCase(Trim(edtBuscar.Text)) + '%";');
-  dm.dataSetClientes.Open;
-  dm.CDSclientes.Open;
+  DM.CDSclientes.Close;
+  DM.dataSetClientes.Close;
+  DM.dataSetClientes.CommandText :=
+    ('select * from cliente where nome LIKE "%' + LowerCase(Trim(edtBuscar.Text)
+    ) + '%";');
+  DM.dataSetClientes.Open;
+  DM.CDSclientes.Open;
 
   if DM.CDSclientesnome.Text <> '' then
   begin
@@ -131,6 +132,13 @@ end;
 
 procedure TfrmPedidosDeVenda.FormCreate(Sender: TObject);
 begin
+  DM.CDSvendas.Close;
+  DM.dataSetVendas.Close;
+  DM.dataSetVendas.CommandText := 'select * from venda order by id asc;';
+  DM.CDSvendas.Open;
+  DM.dataSetVendas.Open;
+
+  DBGridVendas.DataSource := DM.DSvendas;
   selectItemFromVenda;
   DBGridProdutos.DataSource := DM.DSitens;
 end;

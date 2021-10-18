@@ -40,6 +40,7 @@ type
     procedure edtQuantidadeChange(Sender: TObject);
     procedure edtDescontoChange(Sender: TObject);
     procedure edtAcrescimoChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,15 +58,8 @@ uses uCadastrarCliente, uCadastrarProduto, uCadastrarVenda, uDataModule,
   uFunctions, uMain, uPedidosDeVenda;
 
 procedure TfrmAdicionarItemAVenda.btnConfirmarClick(Sender: TObject);
-var
-  id: integer;
 begin
-  dm.dataSetItens.Open;
-  dm.CDSitens.Open;
 
-  dm.CDSitens.Append;
-  dm.CDSitensid.AsInteger := getId('id', 'item') +
-    frmCadastrarVenda.DBGridItensDaVenda.DataSource.DataSet.RecordCount;
   dm.CDSitensfkVenda.AsInteger := StrToInt(dm.CDSvendasid.Text);
   dm.CDSitensfkproduto.AsInteger := StrToInt(dm.CDSprodutosid.Text);
   dm.CDSitensnome.Text := dm.CDSprodutosnome.Text;
@@ -73,6 +67,11 @@ begin
   dm.CDSitensdescricao.Text := dm.CDSprodutosdescricao.Text;
   dm.CDSitensquantidade.AsInteger := StrToInt(edtQuantidade.Text);
   dm.CDSitens.Post;
+  dm.CDSitens.ApplyUpdates(2);
+
+  frmCadastrarVenda.edtDesconto.Enabled := true;
+  frmCadastrarVenda.edtFrete.Enabled := true;
+  frmCadastrarVenda.btnConfirmarVenda.Enabled := true;
 
   dm.dataSetItens.CommandText := 'select * from item where fkVenda = ' +
     dm.CDSvendasid.Text + ' order by id asc;';
@@ -97,8 +96,9 @@ begin
 
   dm.CDSprodutos.Close;
   dm.dataSetProdutos.Close;
-  dm.dataSetProdutos.CommandText := ('select * from produto where nome LIKE "%'
-    + LowerCase(Trim(edtBuscar.Text)) + '%";');
+  dm.dataSetProdutos.CommandText :=
+    ('select * from produto where nome LIKE "%' + LowerCase(Trim(edtBuscar.Text)
+    ) + '%";');
   dm.dataSetProdutos.Open;
   dm.CDSprodutos.Open;
 
@@ -122,14 +122,28 @@ begin
   frmCadastrarVenda.edtSubTotal.Text :=
     FloatToStr(StrToFloat(frmCadastrarVenda.edtSubTotal.Text) +
     valorTotalDoItem);
+
+  frmCadastrarVenda.edtValorTotal.Text := FloatToStr(valorTotalDaVenda);
 end;
 
 procedure TfrmAdicionarItemAVenda.FormCreate(Sender: TObject);
 begin
   DBEdtNome.Clear;
-  DBEdtPreco.Clear;
+  DBEdtPreco.Text := '0';
   DBEdtDescricao.Clear;
-  DBEdtEstoque.Clear;
+  DBEdtEstoque.Text := '0';
+end;
+
+procedure TfrmAdicionarItemAVenda.FormShow(Sender: TObject);
+begin
+  dm.CDSitens.Append;
+  dm.CDSitensid.AsInteger := getId('id', 'item');
+  try
+    dm.CDSitens.Post;
+    dm.CDSitens.ApplyUpdates(0);
+  except
+    on E: Exception do
+  end;
 end;
 
 end.

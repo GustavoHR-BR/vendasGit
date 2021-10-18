@@ -55,13 +55,27 @@ uses uDataModule, uMain, uFunctions;
 procedure TfrmCadastrarCliente.edtBuscarChange(Sender: TObject);
 begin
 
-  dm.CDSclientes.Close;
-  dm.dataSetClientes.Close;
-  dm.dataSetClientes.CommandText := ('select * from cliente where nome LIKE "%'
-    + LowerCase(Trim(edtBuscar.Text)) + '%";');
-  dm.dataSetClientes.Open;
-  dm.CDSclientes.Open;
-  DBGrid.DataSource := dm.DSclientes;
+  if edtBuscar.Text = '' then
+  begin
+    dm.CDSclientes.Close;
+    dm.dataSetClientes.Close;
+    dm.dataSetClientes.CommandText :=
+      ('select * from cliente limit 0;');
+    dm.dataSetClientes.Open;
+    dm.CDSclientes.Open;
+    DBGrid.DataSource := dm.DSclientes;
+  end
+  else
+  begin
+    dm.CDSclientes.Close;
+    dm.dataSetClientes.Close;
+    dm.dataSetClientes.CommandText :=
+      ('select * from cliente where nome LIKE "%' +
+      LowerCase(Trim(edtBuscar.Text)) + '%" order by id asc;');
+    dm.dataSetClientes.Open;
+    dm.CDSclientes.Open;
+    DBGrid.DataSource := dm.DSclientes;
+  end;
 end;
 
 procedure TfrmCadastrarCliente.btnNovoClick(Sender: TObject);
@@ -95,6 +109,8 @@ begin
       btnEnableCliente(true);
       edtsEnableCliente(false);
       ShowMessage('Sucesso ao inserir registro');
+      DBGrid.Enabled := true;
+      edtBuscar.Enabled := true;
     except
       on E: Exception do
         ShowMessage('Erro ao inserir registro-  ' + E.ToString);

@@ -1,0 +1,29 @@
+program project;
+
+uses
+  Vcl.Forms,
+  uMain in 'unit\uMain.pas' {frmMain} ,
+  uCadastrarCliente in 'unit\uCadastrarCliente.pas' {frmCadastrarCliente} ,
+  uFunctions in 'function\uFunctions.pas',
+  uCadastrarProduto in 'unit\uCadastrarProduto.pas' {frmCadastrarProduto} ,
+  uPedidosDeVenda in 'unit\uPedidosDeVenda.pas' {frmPedidosDeVenda} ,
+  uCadastrarVenda in 'unit\uCadastrarVenda.pas' {frmCadastrarVenda} ,
+  uAdicionarItemAVenda
+    in 'unit\uAdicionarItemAVenda.pas' {frmAdicionarItemAVenda} ,
+  uDataModule in 'dataModule\uDataModule.pas' {DM: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  ApApplication.CreateForm(TfrmMain, frmMain);
+  AApplication.CreateForm(TfrmCadastrarCliente, frmCadastrarCliente);
+  Application.CreateForm(TfrmCadastrarProduto, frmCadastrarProduto);
+  Application.CreateForm(TfrmPedidosDeVenda, frmPedidosDeVenda);
+  Application.CreateForm(TfrmCadastrarVenda, frmCadastrarVenda);
+  Application.CreateForm(TfrmAdicionarItemAVenda, frmAdicionarItemAVenda);
+  Application.CreateForm(TDM, DM);
+  lication.Run;
+
+end.

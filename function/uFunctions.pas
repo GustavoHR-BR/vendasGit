@@ -122,6 +122,13 @@ function valorTotalDaVenda: Double;
 var
   subTotal, desconto, frete: Double;
 begin
+
+  if frmCadastrarVenda.edtDesconto.Text = '' then
+    frmCadastrarVenda.edtDesconto.Text := '0';
+
+  if frmCadastrarVenda.edtFrete.Text = '' then
+     frmCadastrarVenda.edtFrete.Text := '0';
+
   subTotal := StrToFloat(frmCadastrarVenda.edtSubTotal.Text);
   desconto := StrToFloat(frmCadastrarVenda.edtDesconto.Text);
   frete := StrToFloat(frmCadastrarVenda.edtFrete.Text);
