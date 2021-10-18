@@ -59,8 +59,7 @@ begin
   begin
     dm.CDSclientes.Close;
     dm.dataSetClientes.Close;
-    dm.dataSetClientes.CommandText :=
-      ('select * from cliente limit 0;');
+    dm.dataSetClientes.CommandText := ('select * from cliente limit 0;');
     dm.dataSetClientes.Open;
     dm.CDSclientes.Open;
     DBGrid.DataSource := dm.DSclientes;
@@ -98,36 +97,53 @@ begin
   dm.SQLConnection.Close;
   dm.SQLConnection.Open;
 
-  if dm.CDSclientes.State in [dsInsert] then
+  //validaCamposCliente;
+
+  if DBEdtNome.Text = '' then
+    ShowMessage('Preencha o campo do nome!')
+  else if DBEdtTelefone.Text = '' then
+    ShowMessage('Preencha o campo do telefone!')
+  else if DBEdtEmail.Text = '' then
+    ShowMessage('Preencha o campo do e-mail!')
+  else if DBEdtEndereco.Text = '' then
+    ShowMessage('Preencha o campo do endereço!')
+  else if DBEdtCPF.Text = '' then
+    ShowMessage('Preencha o campo do cpf!')
+  else if DBEdtDataNascimento.Text = '' then
+    ShowMessage('Preencha o campo da data de nascimento!')
+  else
   begin
+    if dm.CDSclientes.State in [dsInsert] then
+    begin
 
-    dm.CDSclientesid.AsInteger := getId('id', 'cliente');
-    dm.CDSclientes.Post;
+      dm.CDSclientesid.AsInteger := getId('id', 'cliente');
+      dm.CDSclientes.Post;
 
-    try
-      dm.CDSclientes.ApplyUpdates(0);
-      btnEnableCliente(true);
-      edtsEnableCliente(false);
-      ShowMessage('Sucesso ao inserir registro');
-      DBGrid.Enabled := true;
-      edtBuscar.Enabled := true;
-    except
-      on E: Exception do
-        ShowMessage('Erro ao inserir registro-  ' + E.ToString);
-    end;
-  end
-  else if dm.CDSclientes.State in [dsEdit] then
-  begin
+      try
+        dm.CDSclientes.ApplyUpdates(0);
+        btnEnableCliente(true);
+        edtsEnableCliente(false);
+        ShowMessage('Sucesso ao inserir registro');
+        DBGrid.Enabled := true;
+        edtBuscar.Enabled := true;
+      except
+        on E: Exception do
+          ShowMessage('Erro ao inserir registro-  ' + E.ToString);
+      end;
+    end
+    else if dm.CDSclientes.State in [dsEdit] then
+    begin
 
-    dm.CDSclientes.Post;
-    try
-      dm.CDSclientes.ApplyUpdates(0);
-      btnEnableCliente(true);
-      edtsEnableCliente(false);
-      ShowMessage('Sucesso ao editar registro');
-    except
-      on E: Exception do
-        ShowMessage('Erro ao editar registro-  ' + E.ToString);
+      dm.CDSclientes.Post;
+      try
+        dm.CDSclientes.ApplyUpdates(0);
+        btnEnableCliente(true);
+        edtsEnableCliente(false);
+        ShowMessage('Sucesso ao editar registro');
+      except
+        on E: Exception do
+          ShowMessage('Erro ao editar registro-  ' + E.ToString);
+      end;
     end;
   end;
 

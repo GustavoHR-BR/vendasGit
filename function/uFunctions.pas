@@ -8,6 +8,8 @@ procedure edtsEnableCliente(status: Boolean);
 procedure btnEnableProduto(status: Boolean);
 procedure edtsEnableProduto(status: Boolean);
 procedure selectItemFromVenda;
+procedure validaCamposCliente;
+procedure validaCamposProduto;
 function valorTotalDoItem: Double;
 function valorTotalDaVenda: Double;
 
@@ -132,6 +134,16 @@ begin
     desconto := StrToFloat(frmCadastrarVenda.edtDesconto.Text);
     frete := StrToFloat(frmCadastrarVenda.edtFrete.Text);
     Result := (subTotal - ((desconto * subTotal) / 100) + frete);
+end;
+
+procedure validaCamposCliente;
+begin
+  //implementar
+end;
+
+procedure validaCamposProduto;
+begin
+  //implementar
 end;
 
 end.

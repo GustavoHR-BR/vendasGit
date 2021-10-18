@@ -55,8 +55,7 @@ begin
   begin
     dm.CDSprodutos.Close;
     dm.dataSetProdutos.Close;
-    dm.dataSetProdutos.CommandText :=
-      ('select * from produto limit 0');
+    dm.dataSetProdutos.CommandText := ('select * from produto limit 0');
     dm.dataSetProdutos.Open;
     dm.CDSprodutos.Open;
     DBGrid.DataSource := dm.DSprodutos;
@@ -93,36 +92,48 @@ begin
   dm.SQLConnection.Close;
   dm.SQLConnection.Open;
 
-  if dm.CDSprodutos.State in [dsInsert] then
+  if DBEdtNome.Text = '' then
+    ShowMessage('Preencha o campo do nome!')
+  else if DBEdtPreco.Text = '' then
+    ShowMessage('Preencha o campo do preço!')
+  else if DBEdtDescricao.Text = '' then
+    ShowMessage('Preencha o campo da descrição!')
+  else if DBEdtQtdEstoque.Text = '' then
+    ShowMessage('Preencha o campo da quantidade!')
+  else
   begin
 
-    dm.CDSprodutosid.AsInteger := getId('id', 'produto');
-    dm.CDSprodutos.Post;
+    if dm.CDSprodutos.State in [dsInsert] then
+    begin
 
-    try
-      dm.CDSprodutos.ApplyUpdates(0);
-      btnEnableProduto(true);
-      edtsEnableProduto(false);
-      ShowMessage('Sucesso ao inserir registro');
-      DBGrid.Enabled := true;
-      edtBuscar.Enabled := true;
-    except
-      on E: Exception do
-        ShowMessage('Erro ao inserir registro-  ' + E.ToString);
-    end;
-  end
-  else if dm.CDSprodutos.State in [dsEdit] then
-  begin
+      dm.CDSprodutosid.AsInteger := getId('id', 'produto');
+      dm.CDSprodutos.Post;
 
-    dm.CDSprodutos.Post;
-    try
-      dm.CDSprodutos.ApplyUpdates(0);
-      btnEnableProduto(true);
-      edtsEnableProduto(false);
-      ShowMessage('Sucesso ao editar registro');
-    except
-      on E: Exception do
-        ShowMessage('Erro ao editar registro-  ' + E.ToString);
+      try
+        dm.CDSprodutos.ApplyUpdates(0);
+        btnEnableProduto(true);
+        edtsEnableProduto(false);
+        ShowMessage('Sucesso ao inserir registro');
+        DBGrid.Enabled := true;
+        edtBuscar.Enabled := true;
+      except
+        on E: Exception do
+          ShowMessage('Erro ao inserir registro-  ' + E.ToString);
+      end;
+    end
+    else if dm.CDSprodutos.State in [dsEdit] then
+    begin
+
+      dm.CDSprodutos.Post;
+      try
+        dm.CDSprodutos.ApplyUpdates(0);
+        btnEnableProduto(true);
+        edtsEnableProduto(false);
+        ShowMessage('Sucesso ao editar registro');
+      except
+        on E: Exception do
+          ShowMessage('Erro ao editar registro-  ' + E.ToString);
+      end;
     end;
   end;
 end;
@@ -131,6 +142,8 @@ procedure TfrmCadastrarProduto.btnEditarClick(Sender: TObject);
 begin
   btnEnableProduto(false);
   edtsEnableProduto(true);
+end;
+
 end;
 
 procedure TfrmCadastrarProduto.btnExcluirClick(Sender: TObject);

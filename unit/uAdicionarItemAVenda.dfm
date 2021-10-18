@@ -119,7 +119,7 @@ object frmAdicionarItemAVenda: TfrmAdicionarItemAVenda
       Top = 13
       Width = 99
       Height = 28
-      Caption = 'Confrimar'
+      Caption = 'Confirmar'
       Enabled = False
       OnClick = btnConfirmarClick
     end

@@ -192,8 +192,9 @@ procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
 begin
   if Tag <> 1 then
   begin
-    if Application.MessageBox('Deseja realmente fechar?', 'Atenção',
-      MB_YESNO + MB_ICONQUESTION) = mrYes then
+    if Application.MessageBox('Deseja realmente fechar? '+
+      'Todos os dados da venda serão perdidos!', 'Atenção',
+        MB_YESNO + MB_ICONQUESTION) = mrYes then
     begin
       dm.CDSitens.Close;
       dm.dataSetItens.Close;
@@ -226,7 +227,6 @@ begin
 
       frmPedidosDeVenda.DBGridVendas.DataSource := dm.DSvendas;
       selectItemFromVenda;
-      frmPedidosDeVenda.Close;
     end
     else
       Abort;
