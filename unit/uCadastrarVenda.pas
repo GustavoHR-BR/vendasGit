@@ -46,6 +46,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure edtDescontoChange(Sender: TObject);
+    procedure edtFreteChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -116,15 +118,26 @@ end;
 
 procedure TfrmCadastrarVenda.edtBuscarChange(Sender: TObject);
 begin
+
   dm.CDSclientes.Close;
-  dm.queryClientes.Close;
-  dm.queryClientes.SQL.Clear;
-  dm.queryClientes.SQL.Add('select * from cliente where nome LIKE "%' +
-    LowerCase(Trim(edtBuscar.Text)) + '%";');
+  dm.dataSetClientes.Close;
+  dm.dataSetClientes.CommandText := ('select * from cliente where nome LIKE "%'
+  + LowerCase(Trim(edtBuscar.Text)) + '%";');
+  dm.dataSetClientes.Open;
   dm.CDSclientes.Open;
 
   if edtBuscar.Text <> dm.CDSclientesnome.Text then
     btnAddItem.Enabled := false;
+end;
+
+procedure TfrmCadastrarVenda.edtDescontoChange(Sender: TObject);
+begin
+  // edtTotal := função total;
+end;
+
+procedure TfrmCadastrarVenda.edtFreteChange(Sender: TObject);
+begin
+  // edtTotal := função total;
 end;
 
 procedure TfrmCadastrarVenda.FormClose(Sender: TObject;

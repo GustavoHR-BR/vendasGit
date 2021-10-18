@@ -51,12 +51,12 @@ uses uCadastrarCliente, uDataModule, uFunctions, uMain;
 procedure TfrmCadastrarProduto.edtBuscarChange(Sender: TObject);
 begin
 
-  DM.CDSprodutos.Close;
-  DM.queryProdutos.Close;
-  DM.queryProdutos.SQL.Clear;
-  DM.queryProdutos.SQL.Add('select * from produto where nome LIKE "%' +
+  dm.CDSprodutos.Close;
+  dm.dataSetProdutos.Close;
+  dm.dataSetProdutos.CommandText := ('select * from produto where nome LIKE "%' +
     LowerCase(Trim(edtBuscar.Text)) + '%";');
-  DM.CDSprodutos.Open;
+  dm.dataSetProdutos.Open;
+  dm.CDSprodutos.Open;
   DBGrid.DataSource := DM.DSprodutos;
 end;
 

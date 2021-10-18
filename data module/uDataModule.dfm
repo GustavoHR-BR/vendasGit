@@ -45,53 +45,13 @@ object DM: TDM
     Left = 48
     Top = 16
   end
-  object queryClientes: TSQLQuery
-    Active = True
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select * from cliente;')
-    SQLConnection = SQLConnection
-    Left = 48
-    Top = 88
-  end
-  object queryProdutos: TSQLQuery
-    Active = True
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select * from produto;')
-    SQLConnection = SQLConnection
-    Left = 48
-    Top = 160
-    object queryProdutosid: TIntegerField
-      FieldName = 'id'
-      Required = True
-    end
-    object queryProdutosnome: TStringField
-      FieldName = 'nome'
-      Size = 60
-    end
-    object queryProdutospreco: TFMTBCDField
-      FieldName = 'preco'
-      Precision = 12
-      Size = 2
-    end
-    object queryProdutosdescricao: TStringField
-      FieldName = 'descricao'
-      Size = 100
-    end
-    object queryProdutosquantidadeNoEstoque: TIntegerField
-      FieldName = 'quantidadeNoEstoque'
-    end
-  end
   object DSPclientes: TDataSetProvider
-    DataSet = queryClientes
+    DataSet = dataSetClientes
     Left = 152
     Top = 88
   end
   object DSPprodutos: TDataSetProvider
-    DataSet = queryProdutos
+    DataSet = dataSetProdutos
     Left = 152
     Top = 160
   end
@@ -184,6 +144,7 @@ object DM: TDM
     Top = 240
     object CDSvendasid: TIntegerField
       FieldName = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object CDSvendasfkCliente: TIntegerField
@@ -263,7 +224,7 @@ object DM: TDM
     MaxBlobSize = -1
     Params = <>
     SQLConnection = SQLConnection
-    Left = 40
+    Left = 48
     Top = 320
   end
   object dataSetVendas: TSQLDataSet
@@ -276,5 +237,27 @@ object DM: TDM
     SQLConnection = SQLConnection
     Left = 48
     Top = 240
+  end
+  object dataSetProdutos: TSQLDataSet
+    SchemaName = 'gustavo_reblin'
+    Active = True
+    CommandText = 'select * from produto;'
+    DbxCommandType = 'Dbx.SQL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 48
+    Top = 168
+  end
+  object dataSetClientes: TSQLDataSet
+    SchemaName = 'gustavo_reblin'
+    Active = True
+    CommandText = 'select * from cliente;'
+    DbxCommandType = 'Dbx.SQL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 48
+    Top = 88
   end
 end

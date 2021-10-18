@@ -115,9 +115,9 @@ object frmCadastrarVenda: TfrmCadastrarVenda
   object Label8: TLabel
     Left = 160
     Top = 339
-    Width = 49
+    Width = 68
     Height = 13
-    Caption = 'Desconto:'
+    Caption = 'Desconto(%):'
   end
   object Label9: TLabel
     Left = 296
@@ -254,6 +254,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Enabled = False
     TabOrder = 8
     Text = '0'
+    OnChange = edtDescontoChange
   end
   object edtFrete: TEdit
     Left = 296
@@ -263,6 +264,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Enabled = False
     TabOrder = 9
     Text = '0'
+    OnChange = edtFreteChange
   end
   object edtValorTotal: TEdit
     Left = 676

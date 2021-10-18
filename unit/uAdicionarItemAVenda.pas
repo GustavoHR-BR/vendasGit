@@ -58,18 +58,14 @@ uses uCadastrarCliente, uCadastrarProduto, uCadastrarVenda, uDataModule,
 
 procedure TfrmAdicionarItemAVenda.btnConfirmarClick(Sender: TObject);
 var
-id : integer;
+  id: integer;
 begin
-
-//  dm.CDSitens.Close;
-//  dm.dataSetItens.Close;
-
-
   dm.dataSetItens.Open;
   dm.CDSitens.Open;
 
   dm.CDSitens.Append;
-  dm.CDSitensid.AsInteger := getId('id','item') + frmCadastrarVenda.DBGridItensDaVenda.DataSource.DataSet.RecordCount;
+  dm.CDSitensid.AsInteger := getId('id', 'item') +
+    frmCadastrarVenda.DBGridItensDaVenda.DataSource.DataSet.RecordCount;
   dm.CDSitensfkVenda.AsInteger := StrToInt(dm.CDSvendasid.Text);
   dm.CDSitensfkproduto.AsInteger := StrToInt(dm.CDSprodutosid.Text);
   dm.CDSitensnome.Text := dm.CDSprodutosnome.Text;
@@ -98,11 +94,12 @@ end;
 
 procedure TfrmAdicionarItemAVenda.edtBuscarChange(Sender: TObject);
 begin
+
   dm.CDSprodutos.Close;
-  dm.queryProdutos.Close;
-  dm.queryProdutos.SQL.Clear;
-  dm.queryProdutos.SQL.Add('select * from produto where nome LIKE "%' +
-    LowerCase(Trim(edtBuscar.Text)) + '%";');
+  dm.dataSetProdutos.Close;
+  dm.dataSetProdutos.CommandText := ('select * from produto where nome LIKE "%'
+    + LowerCase(Trim(edtBuscar.Text)) + '%";');
+  dm.dataSetProdutos.Open;
   dm.CDSprodutos.Open;
 
   if dm.CDSclientesnome.Text <> '' then

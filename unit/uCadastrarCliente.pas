@@ -54,43 +54,44 @@ uses uDataModule, uMain, uFunctions;
 
 procedure TfrmCadastrarCliente.edtBuscarChange(Sender: TObject);
 begin
-  DM.CDSclientes.Close;
-  DM.queryClientes.Close;
-  DM.queryClientes.SQL.Clear;
-  DM.queryClientes.SQL.Add('select * from cliente where nome LIKE "%' +
-    LowerCase(Trim(edtBuscar.Text)) + '%";');
-  DM.CDSclientes.Open;
-  DBGrid.DataSource := DM.DSclientes;
+
+  dm.CDSclientes.Close;
+  dm.dataSetClientes.Close;
+  dm.dataSetClientes.CommandText := ('select * from cliente where nome LIKE "%'
+    + LowerCase(Trim(edtBuscar.Text)) + '%";');
+  dm.dataSetClientes.Open;
+  dm.CDSclientes.Open;
+  DBGrid.DataSource := dm.DSclientes;
 end;
 
 procedure TfrmCadastrarCliente.btnNovoClick(Sender: TObject);
 begin
-  DM.SQLConnection.Close;
-  DM.SQLConnection.Open;
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
 
   btnEnableCliente(false);
   edtsEnableCliente(true);
   edtBuscar.Enabled := false;
   DBGrid.Enabled := false;
 
-  DM.CDSclientes.Append;
+  dm.CDSclientes.Append;
   DBEdtNome.setfocus;
 end;
 
 procedure TfrmCadastrarCliente.btnSalvarClick(Sender: TObject);
 begin
 
-  DM.SQLConnection.Close;
-  DM.SQLConnection.Open;
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
 
-  if DM.CDSclientes.State in [dsInsert] then
+  if dm.CDSclientes.State in [dsInsert] then
   begin
 
-    DM.CDSclientesid.AsInteger := getId('id', 'cliente');
-    DM.CDSclientes.Post;
+    dm.CDSclientesid.AsInteger := getId('id', 'cliente');
+    dm.CDSclientes.Post;
 
     try
-      DM.CDSclientes.ApplyUpdates(0);
+      dm.CDSclientes.ApplyUpdates(0);
       btnEnableCliente(true);
       edtsEnableCliente(false);
       ShowMessage('Sucesso ao inserir registro');
@@ -99,12 +100,12 @@ begin
         ShowMessage('Erro ao inserir registro-  ' + E.ToString);
     end;
   end
-  else if DM.CDSclientes.State in [dsEdit] then
+  else if dm.CDSclientes.State in [dsEdit] then
   begin
 
-    DM.CDSclientes.Post;
+    dm.CDSclientes.Post;
     try
-      DM.CDSclientes.ApplyUpdates(0);
+      dm.CDSclientes.ApplyUpdates(0);
       btnEnableCliente(true);
       edtsEnableCliente(false);
       ShowMessage('Sucesso ao editar registro');
@@ -124,15 +125,15 @@ end;
 
 procedure TfrmCadastrarCliente.btnExcluirClick(Sender: TObject);
 begin
-  DM.SQLConnection.Close;
-  DM.SQLConnection.Open;
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
 
   if Application.MessageBox('Deseja realmente excluir?', 'Atenção',
     MB_YESNO + MB_ICONQUESTION) = mrYes then
   begin
-    DM.CDSclientes.Delete;
+    dm.CDSclientes.Delete;
     try
-      DM.CDSclientes.ApplyUpdates(0);
+      dm.CDSclientes.ApplyUpdates(0);
       ShowMessage('Registro excluído com sucesso! ');
     except
       on E: Exception do
@@ -145,7 +146,7 @@ end;
 
 procedure TfrmCadastrarCliente.btnCancelarClick(Sender: TObject);
 begin
-  DM.CDSclientes.Cancel;
+  dm.CDSclientes.Cancel;
   edtsEnableCliente(false);
   btnEnableCliente(true);
 end;
@@ -153,7 +154,7 @@ end;
 procedure TfrmCadastrarCliente.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  if DM.CDSclientes.State in [dsEdit, dsInsert] then
+  if dm.CDSclientes.State in [dsEdit, dsInsert] then
   begin
     ShowMessage('Existe uma alteração pendente. Conclua-a primeiro!');
     Abort;
@@ -163,7 +164,7 @@ begin
     if Application.MessageBox('Deseja realmente fechar?', 'Atenção',
       MB_YESNO + MB_ICONQUESTION) = mrYes then
     begin
-      DM.CDSclientes.Close;
+      dm.CDSclientes.Close;
       frmCadastrarCliente.Close;
     end
     else

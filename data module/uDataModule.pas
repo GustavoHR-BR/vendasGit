@@ -9,8 +9,6 @@ uses
 type
   TDM = class(TDataModule)
     SQLConnection: TSQLConnection;
-    queryClientes: TSQLQuery;
-    queryProdutos: TSQLQuery;
     DSPclientes: TDataSetProvider;
     DSPprodutos: TDataSetProvider;
     DSPvendas: TDataSetProvider;
@@ -31,11 +29,6 @@ type
     CDSprodutospreco: TFMTBCDField;
     CDSprodutosdescricao: TStringField;
     CDSprodutosquantidadeNoEstoque: TIntegerField;
-    queryProdutosid: TIntegerField;
-    queryProdutosnome: TStringField;
-    queryProdutospreco: TFMTBCDField;
-    queryProdutosdescricao: TStringField;
-    queryProdutosquantidadeNoEstoque: TIntegerField;
     CDSvendasid: TIntegerField;
     CDSvendasfkCliente: TIntegerField;
     CDSvendastotal: TFMTBCDField;
@@ -53,6 +46,8 @@ type
     CDSitenspreco: TFMTBCDField;
     CDSitensdescricao: TStringField;
     CDSitensquantidade: TIntegerField;
+    dataSetProdutos: TSQLDataSet;
+    dataSetClientes: TSQLDataSet;
 
   private
     { Private declarations }
