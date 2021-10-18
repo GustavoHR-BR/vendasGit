@@ -14,7 +14,8 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnCreate = FormCreate
+  OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object DBGridVendas: TDBGrid
@@ -75,16 +76,8 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
       Caption = 'Nova'
       OnClick = btnNovoClick
     end
-    object btnEditar: TSpeedButton
-      Left = 144
-      Top = 8
-      Width = 80
-      Height = 33
-      Caption = 'Editar'
-      OnClick = btnEditarClick
-    end
     object btnImprimir: TSpeedButton
-      Left = 248
+      Left = 136
       Top = 8
       Width = 80
       Height = 33
@@ -96,6 +89,7 @@ object frmPedidosDeVenda: TfrmPedidosDeVenda
       Width = 81
       Height = 33
       Caption = 'Sair'
+      OnClick = btnSairClick
     end
   end
   object Panel2: TPanel

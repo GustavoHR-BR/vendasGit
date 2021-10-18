@@ -103,7 +103,7 @@ var
 begin
 
   if frmAdicionarItemAVenda.edtQuantidade.Text = '' then
-    frmAdicionarItemAVenda.edtQuantidade.Text := '0';
+    frmAdicionarItemAVenda.edtQuantidade.Text := '1';
 
   if frmAdicionarItemAVenda.edtDesconto.Text = '' then
     frmAdicionarItemAVenda.edtDesconto.Text := '0';
@@ -115,24 +115,25 @@ begin
   qtd := StrToInt(frmAdicionarItemAVenda.edtQuantidade.Text);
   desconto := StrToFloat(frmAdicionarItemAVenda.edtDesconto.Text) / 100;
   acrescimo := StrToFloat(frmAdicionarItemAVenda.edtAcrescimo.Text) / 100;
-  Result := (preco * qtd) - (preco * desconto) + (preco * acrescimo);
+  Result := ((preco * qtd) - (preco * desconto) + (preco * acrescimo));
 end;
 
 function valorTotalDaVenda: Double;
 var
   subTotal, desconto, frete: Double;
 begin
-
-  if frmCadastrarVenda.edtDesconto.Text = '' then
+  {
+    if frmCadastrarVenda.edtDesconto.Text = '' then
     frmCadastrarVenda.edtDesconto.Text := '0';
 
-  if frmCadastrarVenda.edtFrete.Text = '' then
-     frmCadastrarVenda.edtFrete.Text := '0';
+    if frmCadastrarVenda.edtFrete.Text = '' then
+    frmCadastrarVenda.edtFrete.Text := '0';
 
-  subTotal := StrToFloat(frmCadastrarVenda.edtSubTotal.Text);
-  desconto := StrToFloat(frmCadastrarVenda.edtDesconto.Text);
-  frete := StrToFloat(frmCadastrarVenda.edtFrete.Text);
-  Result := (subTotal - ((desconto * subTotal) / 100) + frete);
+    subTotal := StrToFloat(frmCadastrarVenda.edtSubTotal.Text);
+    desconto := StrToFloat(frmCadastrarVenda.edtDesconto.Text);
+    frete := StrToFloat(frmCadastrarVenda.edtFrete.Text);
+    Result := (subTotal - ((desconto * subTotal) / 100) + frete);
+  }
 end;
 
 end.

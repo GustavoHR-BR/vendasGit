@@ -14,7 +14,6 @@ type
     Label1: TLabel;
     DBGridVendas: TDBGrid;
     btnNovo: TSpeedButton;
-    btnEditar: TSpeedButton;
     btnImprimir: TSpeedButton;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -25,10 +24,12 @@ type
     Label3: TLabel;
     DBGridProdutos: TDBGrid;
     procedure edtBuscarChange(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure DBGridVendasCellClick(Column: TColumn);
     procedure btnNovoClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -66,10 +67,17 @@ begin
   end;
 end;
 
+procedure TfrmPedidosDeVenda.btnSairClick(Sender: TObject);
+begin
+  frmPedidosDeVenda.Close;
+end;
+
 procedure TfrmPedidosDeVenda.DBGridVendasCellClick(Column: TColumn);
 begin
   selectItemFromVenda;
   DBGridProdutos.DataSource := DM.DSitens;
+  edtCPF.Text := DM.CDSclientescpf.Text;
+  edtNome.Text := DM.CDSclientesnome.Text;
 end;
 
 procedure TfrmPedidosDeVenda.edtBuscarChange(Sender: TObject);
@@ -130,7 +138,22 @@ begin
   end;
 end;
 
-procedure TfrmPedidosDeVenda.FormCreate(Sender: TObject);
+procedure TfrmPedidosDeVenda.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  if Application.MessageBox('Deseja realmente fechar?', 'Atenção',
+    MB_YESNO + MB_ICONQUESTION) = mrYes then
+  begin
+    DM.CDSvendas.Close;
+    dm.CDSitens.Close;
+    frmPedidosDeVenda.Close;
+  end
+  else
+    Abort;
+end;
+
+procedure TfrmPedidosDeVenda.FormShow(Sender: TObject);
+
 begin
   DM.CDSvendas.Close;
   DM.dataSetVendas.Close;

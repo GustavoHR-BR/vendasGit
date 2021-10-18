@@ -1,7 +1,7 @@
 object DM: TDM
   OldCreateOrder = False
-  Height = 470
-  Width = 453
+  Height = 394
+  Width = 412
   object SQLConnection: TSQLConnection
     DriverName = 'MySQL'
     GetDriverFunc = 'getSQLDriverMYSQL'
@@ -79,32 +79,26 @@ object DM: TDM
     end
     object CDSclientesnome: TStringField
       FieldName = 'nome'
-      Required = True
       Size = 60
     end
     object CDSclientescpf: TStringField
       FieldName = 'cpf'
-      Required = True
       Size = 16
     end
     object CDSclientestelefone: TStringField
       FieldName = 'telefone'
-      Required = True
       Size = 15
     end
     object CDSclientesemail: TStringField
       FieldName = 'email'
-      Required = True
       Size = 30
     end
     object CDSclientesdataNascimento: TStringField
       FieldName = 'dataNascimento'
-      Required = True
       Size = 10
     end
     object CDSclientesendereco: TStringField
       FieldName = 'endereco'
-      Required = True
       Size = 60
     end
   end
@@ -151,10 +145,10 @@ object DM: TDM
     end
     object CDSvendasfkCliente: TIntegerField
       FieldName = 'fkCliente'
-      Required = True
     end
     object CDSvendastotal: TFMTBCDField
       FieldName = 'total'
+      DisplayFormat = '#,0.000'
       Precision = 12
       Size = 2
     end
@@ -177,11 +171,9 @@ object DM: TDM
     end
     object CDSitensfkVenda: TIntegerField
       FieldName = 'fkVenda'
-      Required = True
     end
     object CDSitensfkproduto: TIntegerField
       FieldName = 'fkproduto'
-      Required = True
     end
     object CDSitensnome: TStringField
       FieldName = 'nome'
@@ -189,6 +181,7 @@ object DM: TDM
     end
     object CDSitenspreco: TFMTBCDField
       FieldName = 'preco'
+      DisplayFormat = '#,0.000'
       Precision = 12
       Size = 2
     end
@@ -244,6 +237,7 @@ object DM: TDM
   end
   object dataSetProdutos: TSQLDataSet
     SchemaName = 'gustavo_reblin'
+    Active = True
     CommandText = 'select * from produto limit 0;'
     DbxCommandType = 'Dbx.SQL'
     MaxBlobSize = -1
@@ -254,6 +248,7 @@ object DM: TDM
   end
   object dataSetClientes: TSQLDataSet
     SchemaName = 'gustavo_reblin'
+    Active = True
     CommandText = 'select * from cliente limit 0;'
     DbxCommandType = 'Dbx.SQL'
     MaxBlobSize = -1

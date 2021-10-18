@@ -40,6 +40,7 @@ begin
   DM.CDSclientescpf.EditMask := '000.000.000-00;1;_';
   DM.CDSclientestelefone.EditMask := '(00)00000-0000;1;_';
   DM.CDSclientesdataNascimento.EditMask := '00/00/0000;1;_';
+  DM.CDSclientes.Open;
   try
     frmCadastrarCliente.ShowModal;
   finally
@@ -60,6 +61,7 @@ end;
 procedure TfrmMain.ProdutoCadastrarMenuClick(Sender: TObject);
 begin
   Application.CreateForm(TfrmCadastrarProduto, frmCadastrarProduto);
+  DM.CDSprodutos.Open;
   try
     frmCadastrarProduto.ShowModal;
   finally
