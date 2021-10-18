@@ -113,6 +113,7 @@ begin
     dm.CDSvendas.ApplyUpdates(2);
     dm.CDSitens.ApplyUpdates(2);
     ShowMessage('Venda realizada com sucesso! ');
+    frmCadastrarVenda.Close;
   except
     on E: Exception do
       ShowMessage('Erro ao realizar a venda! ' + E.ToString);
@@ -158,8 +159,10 @@ end;
 procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  selectItemFromVenda;
   frmPedidosDeVenda.DBGridProdutos.DataSource := dm.DSitens;
+  dm.CDSvendas.Close;
+  dm.CDSvendas.Open;
+  selectItemFromVenda;
 end;
 
 procedure TfrmCadastrarVenda.FormShow(Sender: TObject);

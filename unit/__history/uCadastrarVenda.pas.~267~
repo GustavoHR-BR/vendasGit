@@ -102,20 +102,18 @@ begin
 end;
 
 procedure TfrmCadastrarVenda.btnConfirmarVendaClick(Sender: TObject);
-var
-  id, fk: string;
 begin
-  id := dm.CDSvendasid.Text;
+  dm.SQLConnection.Close;
+  dm.SQLConnection.Open;
 
-  dm.CDSvendasfkCliente := dm.CDSclientesid.Text;
-  dm.CDSvendastotal := edtValorTotal.Text;
-  dm.CDSvendasdata := DateToStr(Date);
-  
+  dm.CDSvendasfkCliente.Text := dm.CDSclientesid.Text;
+  dm.CDSvendastotal.Text := edtValorTotal.Text;
+  dm.CDSvendasdata.Text := DateToStr(Date);
   try
-    dm.CDSvendas.Open;
-    dm.dataSetVendas.Open;
-    dm.CDSitens.ApplyUpdates(0);
+    dm.CDSvendas.ApplyUpdates(2);
+    dm.CDSitens.ApplyUpdates(2);
     ShowMessage('Venda realizada com sucesso! ');
+    frmCadastrarVenda.Close;
   except
     on E: Exception do
       ShowMessage('Erro ao realizar a venda! ' + E.ToString);
@@ -163,6 +161,8 @@ procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
 begin
   selectItemFromVenda;
   frmPedidosDeVenda.DBGridProdutos.DataSource := dm.DSitens;
+  dm.CDSvendas.Close;
+  dm.CDSvendas.Open;
 end;
 
 procedure TfrmCadastrarVenda.FormShow(Sender: TObject);
@@ -176,7 +176,6 @@ begin
 
   dm.CDSvendas.Append;
   dm.CDSvendasid.AsInteger := getId('id', 'venda');
-
   try
     dm.CDSvendas.Post;
     dm.CDSvendas.ApplyUpdates(0);
