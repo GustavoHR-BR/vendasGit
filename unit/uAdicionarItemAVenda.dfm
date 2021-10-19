@@ -177,6 +177,7 @@ object frmAdicionarItemAVenda: TfrmAdicionarItemAVenda
     Top = 154
     Width = 121
     Height = 21
+    Enabled = False
     TabOrder = 6
     Text = '1'
     OnChange = edtQuantidadeChange
@@ -186,6 +187,7 @@ object frmAdicionarItemAVenda: TfrmAdicionarItemAVenda
     Top = 224
     Width = 121
     Height = 21
+    Enabled = False
     TabOrder = 7
     Text = '0'
     OnChange = edtAcrescimoChange
@@ -195,6 +197,7 @@ object frmAdicionarItemAVenda: TfrmAdicionarItemAVenda
     Top = 154
     Width = 121
     Height = 21
+    Enabled = False
     TabOrder = 8
     Text = '0'
     OnChange = edtDescontoChange

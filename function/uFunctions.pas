@@ -10,8 +10,8 @@ procedure edtsEnableProduto(status: Boolean);
 procedure selectItemFromVenda;
 procedure validaCamposCliente;
 procedure validaCamposProduto;
-function valorTotalDoItem: Double;
-function valorTotalDaVenda: Double;
+procedure valorTotalDoItem;
+procedure valorTotalDaVenda;
 
 implementation
 
@@ -112,12 +112,62 @@ begin
   end;
 end;
 
-function valorTotalDoItem: Double;
+procedure valorTotalDoItem;
+var
+  quantidade: Integer;
+  acrescimo, desconto, preco: Double;
 begin
+
+  if frmAdicionarItemAVenda.edtQuantidade.Text = '' then
+    frmAdicionarItemAVenda.edtQuantidade.Text := '1';
+
+  if frmAdicionarItemAVenda.edtAcrescimo.Text = '' then
+    frmAdicionarItemAVenda.edtAcrescimo.Text := '0';
+
+  if frmAdicionarItemAVenda.edtDesconto.Text = '' then
+    frmAdicionarItemAVenda.edtDesconto.Text := '0';
+
+  quantidade := StrToInt(frmAdicionarItemAVenda.edtQuantidade.Text);
+  acrescimo := StrToFloat(frmAdicionarItemAVenda.edtAcrescimo.Text);
+  desconto := StrToFloat(frmAdicionarItemAVenda.edtDesconto.Text);
+  preco := StrToFloat(DM.CDSprodutospreco.Text);
+
+  frmAdicionarItemAVenda.edtValorTotal.Text :=
+    FloatToStr(preco * quantidade - ((desconto / 100) * preco) +
+    ((acrescimo / 100) * preco));
 end;
 
-function valorTotalDaVenda: Double;
+procedure valorTotalDaVenda;
+var
+  valorDoItem, frete, desconto: Double;
 begin
+
+  if frmCadastrarVenda.Tag = 4 then
+  begin
+
+    if frmCadastrarVenda.edtFrete.Text = '' then
+      frmCadastrarVenda.edtFrete.Text := '0';
+
+    if frmCadastrarVenda.edtDesconto.Text = '' then
+      frmCadastrarVenda.edtDesconto.Text := '0';
+
+    valorDoItem := StrToFloat(frmCadastrarVenda.edtSubTotal.Text);
+    frete := StrToFloat(frmCadastrarVenda.edtFrete.Text);
+    desconto := StrToFloat(frmCadastrarVenda.edtDesconto.Text);
+
+    frmCadastrarVenda.edtValorTotal.Text :=
+      FloatToStr(valorDoItem + frete - ((desconto / 100) * valorDoItem));
+
+  end
+  else if frmCadastrarVenda.Tag = 2 then
+  begin
+
+  end
+  else if frmCadastrarVenda.Tag = 3 then
+  begin
+
+  end;
+
 end;
 
 procedure validaCamposCliente;

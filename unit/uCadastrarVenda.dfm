@@ -300,6 +300,14 @@ object frmCadastrarVenda: TfrmCadastrarVenda
       Enabled = False
       OnClick = btnConfirmarVendaClick
     end
+    object edtAuxiliar: TEdit
+      Left = 24
+      Top = 16
+      Width = 121
+      Height = 21
+      TabOrder = 0
+      Visible = False
+    end
   end
   object btnSelecionar: TButton
     Left = 311

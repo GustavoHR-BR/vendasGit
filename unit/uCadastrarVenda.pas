@@ -40,6 +40,7 @@ type
     btnConfirmarVenda: TSpeedButton;
     btnSelecionar: TButton;
     btnCancelar: TButton;
+    edtAuxiliar: TEdit;
     procedure edtBuscarChange(Sender: TObject);
     procedure btnSelecionarClick(Sender: TObject);
     procedure btnAddItemClick(Sender: TObject);
@@ -55,7 +56,7 @@ type
   private
     { Private declarations }
   public
-    { Public declarations }
+
   end;
 
 var
@@ -71,7 +72,8 @@ uses uCadastrarCliente, uCadastrarProduto, uDataModule, uFunctions, uMain,
 procedure TfrmCadastrarVenda.btnAddItemClick(Sender: TObject);
 begin
   Application.CreateForm(TfrmAdicionarItemAVenda, frmAdicionarItemAVenda);
-  Tag := 1;
+  Tag := 4;
+  frmAdicionarItemAVenda.Tag := 0;
   try
     frmAdicionarItemAVenda.ShowModal;
   finally
@@ -168,11 +170,16 @@ end;
 
 procedure TfrmCadastrarVenda.btnSelecionarClick(Sender: TObject);
 begin
-  edtBuscar.Text := dm.CDSclientesnome.Text;
-  btnAddItem.Enabled := true;
-  btnSelecionar.Enabled := false;
-  edtBuscar.Enabled := false;
-  btnCancelar.Enabled := true;
+  if dm.CDSclientesnome.Text <> '' then
+  begin
+    edtBuscar.Text := dm.CDSclientesnome.Text;
+    btnAddItem.Enabled := true;
+    btnSelecionar.Enabled := false;
+    edtBuscar.Enabled := false;
+    btnCancelar.Enabled := true;
+  end
+  else
+    ShowMessage('Primeiro selecione um cliente! ');
 end;
 
 procedure TfrmCadastrarVenda.edtBuscarChange(Sender: TObject);
@@ -192,12 +199,12 @@ end;
 
 procedure TfrmCadastrarVenda.edtDescontoChange(Sender: TObject);
 begin
-  //
+  valorTotalDaVenda;
 end;
 
 procedure TfrmCadastrarVenda.edtFreteChange(Sender: TObject);
 begin
-  //
+  valorTotalDaVenda;
 end;
 
 procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
@@ -205,7 +212,7 @@ procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
 var
   I, rows, lastId: Integer;
 begin
-  if (Tag <> 1) or (Tag <> 2) then
+  if (Tag <> 1) and (Tag <> 2) then
   begin
 
     rows := DBGridItensDaVenda.DataSource.DataSet.RecordCount;
