@@ -74,10 +74,9 @@ end;
 
 procedure TfrmPedidosDeVenda.DBGridVendasCellClick(Column: TColumn);
 begin
+  Tag := 1;
   selectItemFromVenda;
   DBGridProdutos.DataSource := DM.DSitens;
-  edtCPF.Text := DM.CDSclientescpf.Text;
-  edtNome.Text := DM.CDSclientesnome.Text;
 end;
 
 procedure TfrmPedidosDeVenda.edtBuscarChange(Sender: TObject);
@@ -101,7 +100,7 @@ begin
 
       DM.CDSvendas.Close;
       DM.dataSetVendas.Close;
-      DM.dataSetVendas.CommandText := 'select * from venda;';
+      DM.dataSetVendas.CommandText := 'select * from venda order by id asc;';
       DM.CDSvendas.Open;
       DM.dataSetVendas.Open;
 

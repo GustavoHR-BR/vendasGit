@@ -144,8 +144,6 @@ begin
   edtsEnableProduto(true);
 end;
 
-end;
-
 procedure TfrmCadastrarProduto.btnExcluirClick(Sender: TObject);
 begin
   dm.SQLConnection.Close;

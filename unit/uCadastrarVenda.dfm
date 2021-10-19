@@ -96,6 +96,7 @@ object frmCadastrarVenda: TfrmCadastrarVenda
     Height = 28
     Caption = 'Editar item'
     Enabled = False
+    OnClick = btnEditarItemClick
   end
   object btnRemoverItem: TSpeedButton
     Left = 244

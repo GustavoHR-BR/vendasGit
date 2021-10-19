@@ -51,6 +51,7 @@ type
     procedure btnRemoverItemClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnEditarItemClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -70,6 +71,7 @@ uses uCadastrarCliente, uCadastrarProduto, uDataModule, uFunctions, uMain,
 procedure TfrmCadastrarVenda.btnAddItemClick(Sender: TObject);
 begin
   Application.CreateForm(TfrmAdicionarItemAVenda, frmAdicionarItemAVenda);
+  Tag := 1;
   try
     frmAdicionarItemAVenda.ShowModal;
   finally
@@ -126,9 +128,20 @@ begin
 
 end;
 
+procedure TfrmCadastrarVenda.btnEditarItemClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmAdicionarItemAVenda, frmAdicionarItemAVenda);
+  Tag := 2;
+  try
+    frmAdicionarItemAVenda.ShowModal;
+  finally
+    FreeAndNil(frmAdicionarItemAVenda);
+  end;
+end;
+
 procedure TfrmCadastrarVenda.btnRemoverItemClick(Sender: TObject);
 begin
-  //
+  Tag := 3;
   dm.SQLConnection.Close;
   dm.SQLConnection.Open;
 
@@ -179,33 +192,42 @@ end;
 
 procedure TfrmCadastrarVenda.edtDescontoChange(Sender: TObject);
 begin
-  edtValorTotal.Text := FloatToStr(valorTotalDaVenda);
+  //
 end;
 
 procedure TfrmCadastrarVenda.edtFreteChange(Sender: TObject);
 begin
-  edtValorTotal.Text := FloatToStr(valorTotalDaVenda);
+  //
 end;
 
 procedure TfrmCadastrarVenda.FormClose(Sender: TObject;
   var Action: TCloseAction);
+var
+  I, rows, lastId: Integer;
 begin
-  if Tag <> 1 then
+  if (Tag <> 1) or (Tag <> 2) then
   begin
-    if Application.MessageBox('Deseja realmente fechar? '+
+
+    rows := DBGridItensDaVenda.DataSource.DataSet.RecordCount;
+    lastId := getId('id', 'item');
+
+    if Application.MessageBox('Deseja realmente fechar? ' +
       'Todos os dados da venda serão perdidos!', 'Atenção',
-        MB_YESNO + MB_ICONQUESTION) = mrYes then
+      MB_YESNO + MB_ICONQUESTION) = mrYes then
     begin
-      dm.CDSitens.Close;
-      dm.dataSetItens.Close;
-      dm.dataSetItens.CommandText := 'delete from item where (id = ' +
-        FloatToStr((getId('id', 'item') - 1)) + ') and (fkVenda = ' +
-        dm.CDSvendasid.Text + ');';
-      try
-        dm.dataSetItens.Open;
-        dm.CDSitens.Open;
-      except
-        on E: Exception do
+      for I := 1 to rows do
+      begin
+        dm.CDSitens.Close;
+        dm.dataSetItens.Close;
+        dm.dataSetItens.CommandText := 'delete from item where (id = ' +
+          IntToStr(lastId - I) + ') and (fkVenda = ' +
+          dm.CDSvendasid.Text + ');';
+        try
+          dm.dataSetItens.Open;
+          dm.CDSitens.Open;
+        except
+          on E: Exception do
+        end;
       end;
 
       dm.CDSvendas.Close;
@@ -254,8 +276,6 @@ begin
   except
     on E: Exception do
   end;
-
-  edtValorTotal.Text := FloatToStr(valorTotalDaVenda);
 
   DBEdtCPF.Clear;
   DBEdtTelefone.Clear;

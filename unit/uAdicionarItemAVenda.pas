@@ -72,14 +72,10 @@ begin
   dm.CDSitens.ApplyUpdates(2);
 
   frmCadastrarVenda.btnRemoverItem.Enabled := true;
-
+  frmCadastrarVenda.btnEditarItem.Enabled := true;
   frmCadastrarVenda.edtDesconto.Enabled := true;
   frmCadastrarVenda.edtFrete.Enabled := true;
   frmCadastrarVenda.btnConfirmarVenda.Enabled := true;
-
-  frmCadastrarVenda.edtSubTotal.Text :=
-    inttostr(StrToInt(frmCadastrarVenda.edtSubTotal.Text) +
-    StrToInt(edtValorTotal.Text));
 
   dm.dataSetItens.CommandText := 'select * from item where fkVenda = ' +
     dm.CDSvendasid.Text + ' order by id asc;';
@@ -87,15 +83,9 @@ begin
 
   Tag := 1;
   frmAdicionarItemAVenda.Close;
-
 end;
 
 procedure TfrmAdicionarItemAVenda.Button1Click(Sender: TObject);
-begin
-  edtValorTotal.Text := floattostr(valorTotalDoItem);
-end;
-
-procedure TfrmAdicionarItemAVenda.edtAcrescimoChange(Sender: TObject);
 begin
   edtValorTotal.Text := floattostr(valorTotalDoItem);
 end;
@@ -116,7 +106,6 @@ begin
     begin
       btnConfirmar.Enabled := true;
       btnCancelar.Enabled := true;
-      edtValorTotal.Text := floattostr(valorTotalDoItem);
     end;
   end
   else
@@ -131,35 +120,44 @@ end;
 
 procedure TfrmAdicionarItemAVenda.edtDescontoChange(Sender: TObject);
 begin
-  edtValorTotal.Text := floattostr(valorTotalDoItem);
+  //
 end;
 
 procedure TfrmAdicionarItemAVenda.edtQuantidadeChange(Sender: TObject);
 begin
-  edtValorTotal.Text := floattostr(valorTotalDoItem);
+  //
+end;
+
+procedure TfrmAdicionarItemAVenda.edtAcrescimoChange(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfrmAdicionarItemAVenda.btnCancelarClick(Sender: TObject);
 begin
-  btnConfirmar.Enabled := false;
-  btnCancelar.Enabled := false;
-  edtBuscar.Clear;
-  edtValorTotal.Text := '0';
-  DBEdtNome.Clear;
-  DBEdtPreco.Clear;
-  DBEdtDescricao.Clear;
-  DBEdtEstoque.Clear;
+  if frmCadastrarVenda.Tag <> 1 then
+  begin
+    btnConfirmar.Enabled := false;
+    btnCancelar.Enabled := false;
+    edtBuscar.Clear;
+    edtValorTotal.Text := '0';
+    DBEdtNome.Clear;
+    DBEdtPreco.Clear;
+    DBEdtDescricao.Clear;
+    DBEdtEstoque.Clear;
+  end
+  else
+  begin
+    frmAdicionarItemAVenda.Close;
+  end;
 end;
 
 procedure TfrmAdicionarItemAVenda.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  if Tag = 1 then
-  begin
-    frmCadastrarVenda.edtValorTotal.Text := floattostr(valorTotalDaVenda);
-    frmAdicionarItemAVenda.Close;
-  end
-  else
+  frmAdicionarItemAVenda.Close;
+
+  if (Tag <> 1) and (Tag <> 2) then
   begin
 
     dm.CDSitens.Close;
@@ -188,20 +186,37 @@ end;
 
 procedure TfrmAdicionarItemAVenda.FormShow(Sender: TObject);
 begin
-  DBEdtNome.Clear;
-  DBEdtPreco.Text := '0';
-  DBEdtDescricao.Clear;
-  DBEdtEstoque.Text := '0';
+  if frmCadastrarVenda.Tag = 1 then
+  begin
+    DBEdtNome.Clear;
+    DBEdtPreco.Text := '0';
+    DBEdtDescricao.Clear;
+    DBEdtEstoque.Text := '0';
 
-  dm.CDSitens.Open;
-  dm.CDSitens.Append;
-  dm.CDSitensid.AsInteger := getId('id', 'item');
-  dm.CDSitensfkVenda.AsInteger := StrToInt(dm.CDSvendasid.Text);
-  try
-    dm.CDSitens.Post;
-    dm.CDSitens.ApplyUpdates(0);
-  except
-    on E: Exception do
+    dm.CDSitens.Open;
+    dm.CDSitens.Append;
+    dm.CDSitensid.AsInteger := getId('id', 'item');
+    dm.CDSitensfkVenda.AsInteger := StrToInt(dm.CDSvendasid.Text);
+    try
+      dm.CDSitens.Post;
+      dm.CDSitens.ApplyUpdates(0);
+    except
+      on E: Exception do
+    end;
+  end
+  else if frmCadastrarVenda.Tag = 2 then
+  begin
+    dm.CDSitens.Open;
+    edtBuscar.Enabled := false;
+    btnConfirmar.Enabled := true;
+    edtValorTotal.Text :=
+      floattostr((strtofloat(dm.CDSitenspreco.Text) *
+      StrToInt(dm.CDSitensquantidade.Text)));
+    edtQuantidade.Text := dm.CDSitensquantidade.Text;
+  end
+  else
+  begin
+
   end;
 end;
 

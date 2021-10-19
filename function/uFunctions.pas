@@ -76,6 +76,20 @@ end;
 
 procedure selectItemFromVenda;
 begin
+
+  if frmPedidosDeVenda.Tag = 1 then
+  begin
+    DM.CDSclientes.Close;
+    DM.dataSetClientes.Close;
+    DM.dataSetClientes.CommandText :=
+      ('select * from cliente where id = ' + DM.CDSvendasfkCliente.Text + ';');
+    DM.dataSetClientes.Open;
+    DM.CDSclientes.Open;
+
+    frmPedidosDeVenda.edtCPF.Text := DM.CDSclientescpf.Text;
+    frmPedidosDeVenda.edtNome.Text := DM.CDSclientesnome.Text;
+  end;
+
   if DM.CDSvendasid.Text <> '' then
   begin
     DM.CDSitens.Close;
@@ -99,51 +113,21 @@ begin
 end;
 
 function valorTotalDoItem: Double;
-var
-  preco, desconto, acrescimo: Double;
-  qtd: Integer;
 begin
-
-  if frmAdicionarItemAVenda.edtQuantidade.Text = '' then
-    frmAdicionarItemAVenda.edtQuantidade.Text := '1';
-
-  if frmAdicionarItemAVenda.edtDesconto.Text = '' then
-    frmAdicionarItemAVenda.edtDesconto.Text := '0';
-
-  if frmAdicionarItemAVenda.edtAcrescimo.Text = '' then
-    frmAdicionarItemAVenda.edtAcrescimo.Text := '0';
-
-  preco := StrToFloat(frmAdicionarItemAVenda.DBEdtPreco.Text);
-  qtd := StrToInt(frmAdicionarItemAVenda.edtQuantidade.Text);
-  desconto := StrToFloat(frmAdicionarItemAVenda.edtDesconto.Text) / 100;
-  acrescimo := StrToFloat(frmAdicionarItemAVenda.edtAcrescimo.Text) / 100;
-  Result := ((preco * qtd) - (preco * desconto) + (preco * acrescimo));
 end;
 
 function valorTotalDaVenda: Double;
-var
-  subTotal, desconto, frete: Double;
 begin
-    if frmCadastrarVenda.edtDesconto.Text = '' then
-    frmCadastrarVenda.edtDesconto.Text := '0';
-
-    if frmCadastrarVenda.edtFrete.Text = '' then
-    frmCadastrarVenda.edtFrete.Text := '0';
-
-    subTotal := StrToFloat(frmCadastrarVenda.edtSubTotal.Text);
-    desconto := StrToFloat(frmCadastrarVenda.edtDesconto.Text);
-    frete := StrToFloat(frmCadastrarVenda.edtFrete.Text);
-    Result := (subTotal - ((desconto * subTotal) / 100) + frete);
 end;
 
 procedure validaCamposCliente;
 begin
-  //implementar
+  // implementar
 end;
 
 procedure validaCamposProduto;
 begin
-  //implementar
+  // implementar
 end;
 
 end.
